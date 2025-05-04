@@ -11,16 +11,20 @@ const PersonalBasketStudentSchema = new mongoose.Schema({
     //                  *ת.ז
     //                  *שם
     //                  *עיר מגורים
-    //                  *לקות
+    //                  *קוד לקות 
+    //                  *כיתה
+    //                  *שעות זכאות
     details:{
         Id:{typ:String},
         name:{type:String},
         city:{type:String},
-        disability:{type:String}
+        disability:{type:Number},
+        grade:{type:String,enum:['ח','ב','ג','ד','ה','ו','ז','א']},
+        hour:{type:Number}//ספק אם צריך???
     },
-    //מערך שעות שלהם הוא זכאי( סוג  &  כמות )
+    // מערך שעות שלהם הוא זכאי ( סוג  &  כמות )
     entitlementHours:{
-        type:[{type:String,hours:Number}]
+        type:[{type:String ,hours:Number}]
     }
     //??מערך שעות בפועל (המערך יכיל איברים מסוג  PersonalBasketHours )???
 },{timestamps:true})
