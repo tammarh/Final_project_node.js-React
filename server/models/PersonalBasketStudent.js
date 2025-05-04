@@ -24,9 +24,8 @@ const PersonalBasketStudentSchema = new mongoose.Schema({
     },
     // מערך שעות שלהם הוא זכאי ( סוג  &  כמות )
     entitlementHours:{
-        type:[{type:String ,hours:Number}]
+        type:[{type:String ,hours:Number}]//אפשר להוסיף כאן enum
     }
-    //??מערך שעות בפועל (המערך יכיל איברים מסוג  PersonalBasketHours )???
 },{timestamps:true})
 
 module.exports = mongoose.model('PersonalBasketStudent',PersonalBasketStudentSchema)
