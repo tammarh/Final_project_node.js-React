@@ -16,11 +16,10 @@ const UserSchema = new mongoose.Schema({
  },
 rolse:{
     type:String,
-    enum:['pikuah','manha','mora','other'],
-    default:'other'
+    enum:['מפקחת','מורה','מזכירה']
 }
 
 },{timestamps:true})
 
 
-module.exports = mongoose.model('User',userSchema)
+module.exports = mongoose.model('User',UserSchema)

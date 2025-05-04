@@ -11,12 +11,21 @@ const SupportAllocationSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    //הלקות
+    //כיתה
+    grade:{
+        type:String,
+        enum:['ח','ב','ג','ד','ה','ו','ז','א']
+    },
+    // קוד הלקות 
     disability:{
         type:String, //אולי להוסיף enum
         required:true
     },
-    //והתמיכות להן זכאי????
+    //מספר השעות להן זכאי
+    numHour:{
+        type:Number
+    }
+    /// not finish !!!!
 },{timestamps:true})
 
 module.exports = mongoose.model('SupportAllocation',SupportAllocationSchema)
