@@ -14,7 +14,7 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.static("public"))
 
-
+app.use('/api/TeachingHours',require('./routes/teachingHoursRoutes'))
 
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB')
