@@ -15,6 +15,7 @@ app.use(express.json())
 app.use(express.static("public"))
 
 app.use('/api/TeachingHours',require('./routes/teachingHoursRoutes'))
+app.use('/api/Institution',require('./routes/InstitutionRoutes'))
 
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB')
