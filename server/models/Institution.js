@@ -27,6 +27,14 @@ const InstitutionSchema = new mongoose.Schema({
     Supervisor:{
         type:String ,
         required : true
+    },
+    numStudent:{
+        type:Number,
+        required : true
+    },
+    longEducationDay:{
+        type:Boolean,
+        required : true
     }
 }
 ,{timestamps:true}) 
