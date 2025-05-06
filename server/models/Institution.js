@@ -27,7 +27,10 @@ const InstitutionSchema = new mongoose.Schema({
     Supervisor:{
         type:String ,
         required : true
-    }
+    },
+    // מספר תלמידים
+    studentsNumber:{
+    type: Number
 }
 ,{timestamps:true}) 
 
