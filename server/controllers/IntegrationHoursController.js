@@ -18,7 +18,7 @@ const getIHoursByInstitutionSymbol = async (req,res)=>{
 
 
 const createIntegrationHours = async (req,res)=>{
-    const {institution,grade,equivalent,studentsAllocation,classType,source,designation,fromDate,untilDate,actualQuota} = req.body
+    const {institution,grade,equivalent,studentsAllocation,classType,source,calculatedQuota,designation,fromDate,untilDate,actualQuota} = req.body
     if(!institution)
         return res.status(400).json({message:'not found institution'})
     if(!source || !designation || !fromDate || !untilDate  || !actualQuota)
@@ -31,11 +31,8 @@ const createIntegrationHours = async (req,res)=>{
     if (!Institutionn || !Institutionn.shiluv) {
         return res.status(400).json({ message: 'נתוני מוסד לא תקינים עבור חישוב מכסה שילוב' });
       }
-    let calculatedQuota = 0 
     if(designation ==='21 - שעות הכנה')
-        calculatedQuota =Institutionn.shiluv.achana  
-    else 
-        calculatedQuota = Institutionn.shiluv.Niul 
+        calculatedQuota =Institutionn.shiluv.achana   
     const newIhour = await IntegrationHours.create({institution,grade,equivalent,studentsAllocation,classType,source,designation,
         fromDate,untilDate,calculatedQuota,actualQuota})
     res.json(newIhour)
