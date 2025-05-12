@@ -35,6 +35,10 @@ const InstitutionSchema = new mongoose.Schema({
     longEducationDay:{
         type:Boolean,
         required : true
+    },
+    shiluv:{
+        Niul:{type:Number,immutable: true},
+        achana:{type:Number,immutable: true},
     }
 }
 ,{timestamps:true}) 
