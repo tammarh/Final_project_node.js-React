@@ -17,7 +17,7 @@ app.use(express.static("public"))
 app.use('/api/TeachingHours',require('./routes/teachingHoursRoutes'))
 app.use('/api/Institution',require('./routes/InstitutionRoutes'))
 app.use('/api/IntegrationHour',require('./routes/IntegrationHoursRoutes'))
-
+app.use('/api/PersonalBasketHours',require('./routes/PersonalBasketHoursRoutes'))
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB')
     app.listen(PORT, () => console.log(`Server running on port
