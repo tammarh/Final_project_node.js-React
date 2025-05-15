@@ -23,11 +23,13 @@ const PersonalBasketStudentSchema = new mongoose.Schema({
                 'הפרעות נפשיות','ASD תקדורת','לקויי ראיה','לקויי שמיעה' ,'נכויות פיזיות',
                 'מחלות נדירות']},
         grade:{type:String,enum:['ח','ב','ג','ד','ה','ו','ז','א']},
-        hour:{type:Number}//ספק אם צריך???
+        hour:{type:Number}// ספק אם צריך??? middelwere
     },
     // מערך שעות שלהם הוא זכאי ( סוג  &  כמות )
     entitlementHours:{
-        type:[{type:String ,hours:Number}]//אפשר להוסיף כאן enum
+        type:[{
+            type:String,enum:['קלינאית תקשורת',	'מרפאה בעיסוק',	'מטפלת באומנות','אחר'],
+            hours:Number}]//אפשר להוסיף כאן enum
     }
 },{timestamps:true})
 
