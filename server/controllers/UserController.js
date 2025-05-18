@@ -22,7 +22,7 @@ const getUserById = async (req, res) => {
 }
 
 const createUser = async (req, res) => {
-    const { username, password, name, email, role , isTeacher , HourOfTeacher} = req.body;
+    const { username, password, name, email, rolse , isTeacher , HourOfTeacher} = req.body;
     if(!username || !password || !name || !email ) {
         return res.status(400).json({ message: 'All fields are required' })
     }
@@ -31,7 +31,7 @@ const createUser = async (req, res) => {
         return res.status(409).json({ message: 'Username already exists' })
     }
     const hashPwd = await bcrypt.hash(password, 10)
-    const user = await User.create({ username, password : hashPwd, name, email, role,active:true, isTeacher , HourOfTeacher })
+    const user = await User.create({ username, password : hashPwd, name, email, rolse,active:true, isTeacher , HourOfTeacher })
     if(!user) {
         return res.status(500).json({ message: 'Error creating user' })
     }

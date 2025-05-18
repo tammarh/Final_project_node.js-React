@@ -11,7 +11,7 @@ const verifyJWT = (req, res, next) => {
         process.env.ACCESS_TOKEN_SECRET, 
         (err, decoded) => {
         if (err) return res.status(403).json({massage:"Forbidden"})
-        req.user = decoded.user
+        req.user = decoded
         next()
     }) 
 }

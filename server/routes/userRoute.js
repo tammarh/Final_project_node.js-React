@@ -1,6 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/UserController')
+const verifyJWT = require("../middlewere/verifyJWT")
+const verifySupervisor = require("../middlewere/verifySupervisor")
+
+router.use(verifyJWT)
+router.use(verifySupervisor)
 
 router.get('/', userController.getAllUsers)
 router.get('/:id', userController.getUserById)
