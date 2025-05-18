@@ -18,13 +18,13 @@ app.use('/api/TeachingHours',require('./routes/teachingHoursRoute'))
 app.use('/api/Institution',require('./routes/InstitutionRoute'))
 app.use('/api/IntegrationHour',require('./routes/IntegrationHoursRoute'))
 app.use('/api/PersonalBasketHours',require('./routes/PersonalBasketHoursRoute'))
+app.use('/api/PersonalBasketStudent',require('./routes/PersonalBasketStudentRoute'))
 app.use('/api/SupportAllocation',require('./routes/SupportAllocationRoute'))
 app.use('/api/User',require('./routes/UserRoute'))
 app.use('/api/auth',require('./routes/authRoute'))
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB')
-    app.listen(PORT, () => console.log(`Server running on port
-    ${PORT}`))
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 })
 mongoose.connection.on('error', err => {
     console.log(err)
