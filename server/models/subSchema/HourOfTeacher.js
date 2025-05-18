@@ -4,7 +4,7 @@ const Institution = require('../Institution')
 const HourOfTeacherSchema = new mongoose.Schema({
     Institution:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:Institution,
+        ref:'Institution',
         required:true
     },
     integrationhours:{
@@ -26,4 +26,4 @@ const HourOfTeacherSchema = new mongoose.Schema({
     }
 },{})
 
-module.exports = mongoose.model('HourOfTeacher',HourOfTeacherSchema)
+module.exports = HourOfTeacherSchema

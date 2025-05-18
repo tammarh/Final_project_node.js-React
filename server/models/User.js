@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
       unique: true,
       trim: true
    },
-   passward: {
+   password: {
       type: String,
       required: true
 
@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema({
       default: true
    },
    isTeacher:{
+      type: Boolean,
+      default: false
+   },
+   HourOfTeacher:{
       type:[HourOfTeacher],
       default:[]
    }
