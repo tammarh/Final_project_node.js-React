@@ -42,7 +42,7 @@ const TeachingHoursSchema = new mongoose.Schema({
             '19 - ניהול','20 - יעוץ','1 - תוכניות לימודים','18 - חינוך','19 - ניהול',
             '20 - יעוץ','90 - רופא','91 - פרא רפואי','99 - אחות'],
         required:true
-    }, // ❎❎ שיבדוק את ההתאמה בין המקור לייעוד  Middelware לא לשכוח לעשות   ❎❎
+    }, 
     // תאריכים: ממתי 
     fromDate:{
         type:Date,
@@ -65,4 +65,36 @@ const TeachingHoursSchema = new mongoose.Schema({
     }
 },{timestamps:true})
 
+
+const sourceDesignationMap = {
+    '5 - סל עדיפות': ['11 - יוחא', '85 - ניהול'],
+    '6 - תקן בסיסי חנמ לקויות מורכבות': ['1 - תוכניות לימודים', '18 - חינוך', '19 - ניהול', '20 - יעוץ'],
+    '25 - בסיסי חנמ רגיל לקויות קלות': ['1 - תוכניות לימודים', '18 - חינוך', '19 - ניהול', '20 - יעוץ'],
+    '16 - סל שחמ': ['90 - רופא', '91 - פרא רפואי', '99 - אחות']
+}
+
+TeachingHoursSchema.pre('save', function(next) {
+    const { source, designation } = this;
+    const validDesignations = sourceDesignationMap[source];
+
+    if (!validDesignations || !validDesignations.includes(designation)) {
+        return next(new Error(`Invalid designation ${designation} for source ${source}`));
+    }
+    next();
+})
+
+TeachingHoursSchema.pre('findOneAndUpdate', function (next) {
+    const update = this.getUpdate(); // מקבל את הנתונים המעודכנים
+    const source = update.source;
+    const designation = update.designation;
+
+    if (source && designation) {
+        const validDesignations = sourceDesignationMap[source];
+        if (!validDesignations || !validDesignations.includes(designation)) {
+            const error = new Error(`Invalid designation "${designation}" for source "${source}"`);
+            return next(error);
+        }
+    }
+    next(); // אם הכל תקין, ממשיכים לעדכון
+})
 module.exports = mongoose.model('TeachingHours',TeachingHoursSchema)
