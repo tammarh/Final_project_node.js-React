@@ -6,7 +6,8 @@ const PersonalBasketStudentController = require("../controllers/PersonalBasketSt
 router.get("/", PersonalBasketStudentController.getAllBasketStudent)
 router.post("/", PersonalBasketStudentController.createNewBasketStudent)
 router.get("/byId", PersonalBasketStudentController.getBasketStudentById)
-router.put("/", PersonalBasketStudentController.updateBasketStudent)
-router.delete("/", PersonalBasketStudentController.deleteBasketStudent)
+router.get("/sortby", PersonalBasketStudentController.getStudentSortByDisability)
+// router.put("/", PersonalBasketStudentController.updateBasketStudent)
+// router.delete("/", PersonalBasketStudentController.deleteBasketStudent)
 
 module.exports = router
