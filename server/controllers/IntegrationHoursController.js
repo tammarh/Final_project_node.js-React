@@ -16,7 +16,6 @@ const getIHoursByInstitutionSymbol = async (req,res)=>{
     res.json(IHour)
 }
 
-
 const createIntegrationHours = async (req,res)=>{
     const {institution,grade,equivalent,studentsAllocation,classType,source,calculatedQuota,designation,fromDate,untilDate,actualQuota} = req.body
     if(!institution)
