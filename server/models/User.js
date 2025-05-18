@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const HourOfTeacher = require('./subSchema/HourOfTeacher')
 
 const UserSchema = new mongoose.Schema({
    username: {
@@ -28,6 +29,10 @@ const UserSchema = new mongoose.Schema({
    active:{
       type: Boolean,
       default: true
+   },
+   isTeacher:{
+      type:[HourOfTeacher],
+      default:[]
    }
 
 }, { timestamps: true })
