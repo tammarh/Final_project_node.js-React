@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 //שעות סל אישי
 const PersonalBasketHoursSchema = new mongoose.Schema({
-    //יש צורך??? -ת.ז תלמיד
     
     // סמל מוסד
     institution:{
@@ -43,4 +42,33 @@ const PersonalBasketHoursSchema = new mongoose.Schema({
     }
 },{timestamps:true})
 
+const sourceDesignationMap = {
+    '24 - סל שילוב - מתיא': ['1 - תוכניות לימודים', '27 - פרא רפואי', '28 - לק"ש', '30 - לק"ר'],
+    '55 - הנחיית צוות המוס"ח': ['1 - תוכניות לימודים', '21 - שעות הכנה']
+}
+
+PersonalBasketHoursSchema.pre('save', function(next) {
+    const { source, designation } = this;
+    const validDesignations = sourceDesignationMap[source];
+
+    if (!validDesignations || !validDesignations.includes(designation)) {
+        return next(new Error(`Invalid designation ${designation} for source ${source}`));
+    }
+    next();
+})
+
+PersonalBasketHoursSchema.pre('findOneAndUpdate', function (next) {
+    const update = this.getUpdate(); // מקבל את הנתונים המעודכנים
+    const source = update.source;
+    const designation = update.designation;
+
+    if (source && designation) {
+        const validDesignations = sourceDesignationMap[source];
+        if (!validDesignations || !validDesignations.includes(designation)) {
+            const error = new Error(`Invalid designation "${designation}" for source "${source}"`);
+            return next(error);
+        }
+    }
+    next(); // אם הכל תקין, ממשיכים לעדכון
+})
 module.exports = mongoose.model('PersonalBasketHours',PersonalBasketHoursSchema)

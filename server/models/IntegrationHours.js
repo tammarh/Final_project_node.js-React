@@ -10,8 +10,9 @@ const IntegrationHourSchema = new mongoose.Schema({
     // (מספר ושם) מקור
     source: {
         // numSrc:{type:Number,enum:[49]}, -- אם עושים  2 enum צריך אח"כ ב middelware לעשות בדיקות התאמה
-      type: String, enum: ['49 - סל שילוב והכלה'] ,required: true
-        
+      type: String, enum: ['49 - סל שילוב והכלה'],
+      required: true,
+      immutable: true
     },
     // (מספר ושם) ייעוד
     designation: {
@@ -19,7 +20,7 @@ const IntegrationHourSchema = new mongoose.Schema({
             type: String, enum: ['19 - ניהול','21 - שעות הכנה','24 - מקדמות','27 - פרא רפואי']
         ,required: true
         
-    }, // ❎❎ שיבדוק את ההתאמה בין המקור לייעוד  Middelware לא לשכוח לעשות   ❎❎
+    }, 
     // תאריכים: ממתי 
     fromDate: {
         type: Date,
