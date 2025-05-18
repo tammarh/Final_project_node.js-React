@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
+const Institution = require('../Institution')
 
 const HourOfTeacherSchema = new mongoose.Schema({
-    institutionSymbol:{
-        type:String,
+    Institution:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:Institution,
         required:true
     },
     integrationhours:{
