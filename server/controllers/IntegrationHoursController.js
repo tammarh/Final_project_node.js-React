@@ -20,7 +20,7 @@ const createIntegrationHours = async (req,res)=>{
     const {institution,grade,equivalent,studentsAllocation,classType,source,calculatedQuota,designation,fromDate,untilDate,actualQuota} = req.body
     if(!institution)
         return res.status(400).json({message:'not found institution'})
-    if(!source || !designation || !fromDate || !untilDate  || !actualQuota)
+    if( !designation || !fromDate || !untilDate  || !actualQuota)
         return res.status(400).json({message:'missing details'})
     const existingIntegrationHour = await IntegrationHours.findOne({ institution,designation }).populate({ path: 'institution', select: 'shiluv' });
     if (existingIntegrationHour) {

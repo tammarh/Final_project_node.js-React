@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/UserController')
-const verifyJWT = require("../middlewere/verifyJWT")
-const verifySupervisor = require("../middlewere/verifySupervisor")
+const verifyJWT = require("../middleware/verifyJWT")
+const verifySupervisor = require("../middleware/verifySupervisor")
 
 router.use(verifyJWT)
 router.use(verifySupervisor)

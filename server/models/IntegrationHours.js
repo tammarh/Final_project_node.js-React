@@ -11,8 +11,8 @@ const IntegrationHourSchema = new mongoose.Schema({
     source: {
         // numSrc:{type:Number,enum:[49]}, -- אם עושים  2 enum צריך אח"כ ב middelware לעשות בדיקות התאמה
       type: String, enum: ['49 - סל שילוב והכלה'],
-      required: true,
-      immutable: true
+      immutable: true,
+      default: '49 - סל שילוב והכלה'
     },
     // (מספר ושם) ייעוד
     designation: {
