@@ -1,7 +1,7 @@
 const PersonalBasketHours = require('../models/PersonalBasketHours')
 
 const getAllPHours = async (req,res)=>{
-    const pHour = await PersonalBasketHours.find().lean()
+    const pHour = await PersonalBasketHours.find().populate({path: 'institution',select:'institutionName settlement localAuthority Supervisor '})
     if(!pHour)
         return res.status(204).json({message:[]})
     res.json(pHour)

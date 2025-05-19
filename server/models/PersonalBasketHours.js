@@ -11,15 +11,14 @@ const PersonalBasketHoursSchema = new mongoose.Schema({
     // (מספר ושם) מקור
     source:{
        // numSrc:{type:Number,enum:[24,55]}, -- אם עושים  2 enum צריך אח"כ ב middelware לעשות בדיקות התאמה
-        nameSrc:{type:String,enum:['24 - סל שילוב - מתיא','55 - הנחיית צוות המוס"ח'], required:true
-        },
+        type:String,enum:['24 - סל שילוב - מתיא','55 - הנחיית צוות המוס"ח'], required:true
     },
     // (מספר ושם) ייעוד
     designation:{
         //numDes:{type:Number,enum:[1,27,28,30,1,21]}, -- אם עושים 2 enum צריך אח"כ ב middelware לעשות בדיקות התאמה
-        name:{type:String,enum:[ '1 - תוכניות לימודים' ,  '27 - פרא רפואי' , '28 - לק"ש' ,  '30 - לק"ר' , '1 - תוכניות לימודים' , '21 - שעות הכנה'],        required:true
-        },
-    }, // ❎❎ שיבדוק את ההתאמה בין המקור לייעוד  Middelware לא לשכוח לעשות   ❎❎
+        type:String,enum:[ '1 - תוכניות לימודים' ,  '27 - פרא רפואי' , '28 - לק"ש' ,  '30 - לק"ר' , '1 - תוכניות לימודים' , '21 - שעות הכנה'],        required:true
+       
+    }, 
     // תאריכים: ממתי 
     fromDate:{
         type:Date,

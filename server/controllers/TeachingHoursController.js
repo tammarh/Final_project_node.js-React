@@ -1,11 +1,21 @@
 const TeachingHours = require('../models/TeachingHours')
 
 const getAllTHours = async (req, res) => {
-    const tHour = await TeachingHours.find().lean()
+    const tHour = await TeachingHours.find().populate({path: 'institution',select:'institutionName settlement localAuthority Supervisor '})
     if (!tHour)
         return res.status(204).json({ message: [] })
     res.json(tHour)
 }
+
+/*const getAllTHoursofSalShaham = async (req, res) => {
+    const SalShaham = await TeachingHours.find({ source: 'SalShaham' })
+    .populate({path: 'institution',select:'institutionName settlement localAuthority Supervisor '})  
+    if(!SalShaham)
+        return res.status(400).json({ message: "didnt found SalShaham hour" })
+
+    res.json(SalShaham)
+
+}*/
 
 const getTHoursByInstitutionSymbol = async (req, res) => {
     const { id } = req.params
@@ -95,4 +105,4 @@ const deleteTeachHour = async (req, res) => {
 
 }
 
-module.exports = { getAllTHours, getTHoursByInstitutionSymbol, createTeachingHour, updateTeachingHour, deleteTeachHour }
+module.exports = { getAllTHours, getTHoursByInstitutionSymbol/*, getAllTHoursofSalShaham*/ , createTeachingHour, updateTeachingHour, deleteTeachHour }
