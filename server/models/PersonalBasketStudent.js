@@ -21,7 +21,8 @@ const PersonalBasketStudentSchema = new mongoose.Schema({
         disability:{type:String,
             enum:['לקויי למידה','הפרעות התנהגות','עיכוב התפתחותי', 'עיכוב התפתחותי שפתי',
                 'הפרעות נפשיות','ASD תקדורת','לקויי ראיה','לקויי שמיעה' ,'נכויות פיזיות',
-                'מחלות נדירות']},
+                'מחלות נדירות'],
+            trim:true},
         grade:{type:String,enum:['ח','ב','ג','ד','ה','ו','ז','א']},
         hour:{type:Number}// ספק אם צריך??? middelwere
     },
