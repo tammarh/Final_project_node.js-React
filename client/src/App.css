@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.custom-menubar .p-menuitem-link {
+  font-size: 1.5rem;
+}
+
+.custom-menubar .p-menuitem-icon {
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+  color: orange;
+}
