@@ -60,7 +60,7 @@ const updateUser = async (req, res) => {
         user.email = email
     }
     if(role) {
-        user.role = role
+        user.rolse = role
     }
     
     if(active) {

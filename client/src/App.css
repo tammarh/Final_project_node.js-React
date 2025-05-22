@@ -44,5 +44,19 @@
 .custom-menubar .p-menuitem-icon {
   margin-left: 0.5rem;
   font-size: 1.5rem;
-  color: orange;
+  color: rgb(196, 78, 0);
+}
+
+.p-menubar.custom-menubar {
+  background-color: #ffe4b8;
+}
+
+/* שינוי צבע הטקסט בפריטים */
+.p-menubar.custom-menubar .p-menuitem-link {
+  color: rgb(196, 78, 0)!important;
+}
+
+/* שינוי צבע בפריט בעת ריחוף */
+.p-menubar.custom-menubar .p-menuitem-link:hover {
+  color: #ffffff;
 }
