@@ -1,4 +1,4 @@
-
+/*
 import React, { useState } from 'react';
 import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
 import { DataTable } from 'primereact/datatable';
@@ -32,4 +32,4 @@ export default function LazyDemo() {
         </Inplace>
     );
 }
-        
+        */

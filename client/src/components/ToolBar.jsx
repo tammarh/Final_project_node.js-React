@@ -2,11 +2,25 @@ import { Toolbar } from 'primereact/toolbar';
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { InputText } from 'primereact/inputtext';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { setToken, setUser, setRole } from '../redux/redux/tokenSlice';
+import { Toast } from 'primereact/toast'
+import { login } from '../services/authService'
+import axios from 'axios';
 
 export default function CustomDemo() {
+    const [visible, setVisible] = useState(false)
+    const [userName, setUserName] = useState()
+    const [password, setPassword] = useState()
+    const navigate = useNavigate()
+    // const [visibleCust, setVisibleCust] = useState(false);
+    // const [visiblePart, setVisiblePart] = useState(false);
+    const dispatch = useDispatch()
+    const toast = useRef(null)
+
     const startContent = (
         <React.Fragment>
             <img
@@ -16,7 +30,6 @@ export default function CustomDemo() {
             />
         </React.Fragment>
     );
-    const [visible, setVisible] = useState(false);
 
     const centerContent = (
         <div className="flex align-items-center gap-2">
@@ -31,6 +44,27 @@ export default function CustomDemo() {
             </span>
         </div>
     );
+
+    const logIn = async () => {
+        try {
+            //const res = await login({ username: userName, password })
+            const res  = await axios.post('http://localhost:9999/api/auth/login' , {username :userName , password})
+            console.log(res.data.accessToken)
+            dispatch(setUser(res.data.user));
+            dispatch(setRole(res.data.role));
+            dispatch(setToken(res.data.accessToken));
+            if (res.status == 200) {
+                setVisible(false)
+                navigate('./Institution')
+                console.log(res.data.role);
+            }
+        }
+        catch (error) {
+            console.error("Login failed:", error);
+            //toast.current.show({ severity: 'error', summary: 'שגיאה', detail: 'שם משתמש או סיסמה שגויים', life: 3000 });
+            return;
+        }
+    }
 
     const endContent = (
         <React.Fragment>
@@ -74,6 +108,7 @@ export default function CustomDemo() {
                                     שם משתמש
                                 </label>
                                 <InputText
+                                    onChange={(e) => setUserName(e.target.value)}
                                     id="username"
                                     className="bg-white-alpha-20 border-none p-3 text-white"
                                     placeholder="הכנס שם משתמש"
@@ -85,6 +120,7 @@ export default function CustomDemo() {
                                     סיסמה
                                 </label>
                                 <InputText
+                                    onChange={(e) => setPassword(e.target.value)}
                                     id="password"
                                     type="password"
                                     className="bg-white-alpha-20 border-none p-3 text-white"
@@ -95,12 +131,18 @@ export default function CustomDemo() {
                             <div className="flex gap-2 pt-3">
                                 <Button
                                     label="כניסה"
-                                    onClick={(e) => hide(e)}
+                                    onClick={logIn}
                                     className="p-button p-button-sm w-full text-white"
                                     style={{ backgroundColor: '#EF6C00', border: 'none' }}
                                 />
                                 <Button
                                     label="ביטול"
+                                    onClick={(e) => hide(e)}
+                                    className="p-button-outlined p-button-sm w-full text-white"
+                                    style={{ borderColor: 'white', color: 'white' }}
+                                />
+                                <Button
+                                    label="הרשמה"
                                     onClick={(e) => hide(e)}
                                     className="p-button-outlined p-button-sm w-full text-white"
                                     style={{ borderColor: 'white', color: 'white' }}

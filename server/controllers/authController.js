@@ -28,9 +28,6 @@ const login = async (req, res) => {
 
     res.json({token})
 
-
-
-
 }
 const register = async (req, res) => {
     const { username, password, name, email } = req.body
