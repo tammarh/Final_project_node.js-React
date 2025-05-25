@@ -60,3 +60,8 @@
 .p-menubar.custom-menubar .p-menuitem-link:hover {
   color: #ffffff;
 }
+.p-datatable .p-column-header,
+.p-datatable .p-cell {
+    text-align: right;
+    direction: rtl;
+}

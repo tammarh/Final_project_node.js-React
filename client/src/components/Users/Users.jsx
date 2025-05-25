@@ -16,7 +16,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
 import { Checkbox } from "primereact/checkbox";
-import axios from 'axios';
+
 export default function Users() {
     let emptyUser = {
         _id: '',
@@ -38,20 +38,20 @@ export default function Users() {
     const [globalFilter, setGlobalFilter] = useState(null);
     const [checkedp, setCheckedp] = useState(false);
     const [checkedm, setCheckedm] = useState(false);
+    const [ingredient, setIngredient] = useState('');
     const toast = useRef(null);
     const dt = useRef(null);
 
+    const loadUsers = async () => {
+        try {
+            const data = await getAllUsers();
+            setUsers(data);
+        } catch (error) {
+            console.error('שגיאה בקבלת משתמשים:', error);
+        }
+    }
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getAllUsers();
-                setUsers(data);
-            } catch (error) {
-                console.error('שגיאה בקבלת משתמשים:', error);
-            }
-        };
-
-        fetchData();
+        loadUsers();
     }, []);
 
     const formatCurrency = (value) => {
@@ -83,18 +83,15 @@ export default function Users() {
 
 
         try {
-            // כאן תחליט אם ליצור חדש או לעדכן
             if (user._id) {
-                // עדכון
                 await updateUser(user);
             } else {
-                // יצירה חדשה
                 await createUser(user);
             }
-
             toast.current.show({ severity: 'success', summary: 'הצלחה', detail: 'המשתמש נשמר', life: 3000 });
             setUserDialog(false); // סגירת הדיאלוג
-            //loadUsers(); // רענון הרשימה (אם יש)
+            setIngredient('')
+            await loadUsers()
         } catch (error) {
             toast.current.show({ severity: 'error', summary: 'שגיאה', detail: 'קרתה תקלה בשמירה', life: 3000 });
             console.error(error);
@@ -113,10 +110,10 @@ export default function Users() {
         setDeleteUserDialog(true);
     };
 
-    const deleteuser = () => {
-        let _users = users.filter((val) => val.id !== user.id);
-
-        setUsers(_users);
+    const deleteduser = async () => {
+        await deleteUser(user._id)
+        await loadUsers()
+        //setUsers(_users);
         setDeleteUserDialog(false);
         setUser(emptyUser);
         toast.current.show({ severity: 'success', summary: 'Successful', detail: 'user Deleted', life: 3000 });
@@ -133,18 +130,7 @@ export default function Users() {
         }
 
         return index;
-    };
-
-    const createId = () => {
-        let id = '';
-        let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-        for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-
-        return id;
-    };
+    }
 
     const exportCSV = () => {
         dt.current.exportCSV();
@@ -195,7 +181,7 @@ export default function Users() {
         return (
             <div className="flex flex-wrap gap-2" >
                 <Button label="חדש" icon="pi pi-plus" severity="success" onClick={openNew} style={{ margin: '0.5rem' }} />
-                <Button label="מחיקה" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedusers || !selectedusers.length} style={{ margin: '0.5rem' }} />
+                {/* <Button label="מחיקה" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedusers || !selectedusers.length} style={{ margin: '0.5rem' }} /> */}
                 <Button label="הורדה" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} style={{ margin: '0.5rem' }} />;
             </div>
         );
@@ -216,24 +202,28 @@ export default function Users() {
     };
 
 
-    
+
     const statusBodyTemplate = (rowData) => {
-        return <Tag value={rowData.role} severity={getSeverity(rowData)}></Tag>;
+        // return <span>{rowData.rolse}</span>
+        return <Tag value={rowData.rolse} severity={getSeverity(rowData)}></Tag>;
     }
-    
+
 
     const actionBodyTemplate = (rowData) => {
         return (
             <React.Fragment>
-                <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => editUser(rowData)} />
-                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => confirmDeleteuser(rowData)} />
+                <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => editUser(rowData)} style={{ marginLeft: '2rem' }} />
+                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => confirmDeleteuser(rowData)} style={{ marginLeft: '2rem' }} />
+                {rowData.rolse === 'teacher' && <Button icon="pi pi-calendar-plus" rounded outlined severity="success" /*onClick={() => confirmDeleteuser(rowData)}*/ />}
             </React.Fragment>
         );
     };
 
-   const getSeverity = (user) => {
-        switch (user.role) {
-            case 'Supervisor':
+    const getSeverity = (user) => {
+        const rolse = user.rolse?.toLowerCase();
+
+        switch (rolse) {
+            case 'supervisor':
                 return 'success';
 
             case 'teacher':
@@ -254,14 +244,15 @@ export default function Users() {
     );
     const deleteUserDialogFooter = (
         <React.Fragment>
-            <Button label="No" icon="pi pi-times" outlined onClick={hideDeleteUserDialog} />
-            <Button label="Yes" icon="pi pi-check" severity="danger" onClick={deleteuser} />
+            <Button label="לא" icon="pi pi-times" outlined onClick={hideDeleteUserDialog} />
+            <Button label="כן" icon="pi pi-check" severity="danger" onClick={deleteduser} />
         </React.Fragment>
     );
     const deleteUsersDialogFooter = (
         <React.Fragment>
-            <Button label="No" icon="pi pi-times" outlined onClick={hideDeleteUsersDialog} />
-            <Button label="Yes" icon="pi pi-check" severity="danger" onClick={deleteSelectedusers} />
+            <Button label="לא" icon="pi pi-times" outlined onClick={hideDeleteUsersDialog} />
+            <Button label="כן" icon="pi pi-check" severity="danger" onClick={deleteSelectedusers} />
+
         </React.Fragment>
     );
 
@@ -270,21 +261,21 @@ export default function Users() {
             <Toast ref={toast} />
             <div className="card" style={{ margin: '1.5rem' }}>
                 <Toolbar className="mb-4" right={leftToolbarTemplate} left={rightToolbarTemplate}></Toolbar>
-
-                <DataTable ref={dt} value={users} selection={selectedusers} onSelectionChange={(e) => setSelectedUsers(e.value)}
+                {console.log(users)}
+                <DataTable ref={dt} value={users}  selection={selectedusers} onSelectionChange={(e) => setSelectedUsers(e.value)}
                     dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} users" globalFilter={globalFilter} >
-                    <Column selectionMode="multiple" exportable={false}></Column>
+                    {/* <Column selectionMode="multiple" exportable={false}></Column> */}
                     {/* <Column field="id" header="מזהה" style={{ minWidth: '12rem' }}></Column> */}
-                    <Column field="username" header="שם משתמש" style={{ minWidth: '12rem' }}></Column>
-                    <Column field="name" header="שם" sortable style={{ minWidth: '16rem' }}></Column>
-                    <Column field="email" header="מייל" body={emailBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
-                    <Column field="rolse" header="תפקיד" sortable style={{ minWidth: '10rem' }}></Column>
-                    <Column field="active" header="פעיל" sortable style={{ minWidth: '10rem' }}></Column>
-                    {/*<Column field="HourOfTeacher" header="מערכת" sortable style={{ minWidth: '10rem' }}></Column>*/}
-                    <Column field="role" header="תפקיד" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column> 
-                    <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem' }}></Column>
+                    <Column field="username" header="שם משתמש" style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
+                    <Column field="name" header="שם" sortable style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
+                    <Column field="email" header="מייל" body={emailBodyTemplate} sortable style={{ minWidth: '8rem', textAlign: 'right' }}></Column>
+                    {/* <Column field="rolse" header="תפקיד" sortable style={{ minWidth: '10rem' }}></Column> */}
+                    {/* <Column field="active" header="פעיל" sortable style={{ minWidth: '10rem' }}></Column> */}
+                    <Column field="_id" header="מערכת" sortable style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
+                    <Column field="rolse" header="תפקיד" body={statusBodyTemplate} sortable style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
+                    <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
                 </DataTable>
             </div>
 
@@ -296,6 +287,15 @@ export default function Users() {
                     <InputText id="username" value={user.username} onChange={(e) => onInputChange(e, 'username')} required autoFocus className={classNames({ 'p-invalid': submitted && !user.username })} />
                     {submitted && !user.username && <small className="p-error">שם משתמש חובה</small>}
                 </div>
+
+                <div className="field">
+                    <label htmlFor="password" className="font-bold">
+                        סיסמה
+                    </label>
+                    <InputText id="password" value={user.password} onChange={(e) => onInputChange(e, 'password')} required className={classNames({ 'p-invalid': submitted && !user.password })} />
+                    {submitted && !user.password && <small className="p-error">סיסמה חובה</small>}
+                </div>
+
                 <div className="field">
                     <label htmlFor="name" className="font-bold">
                         שם
@@ -310,31 +310,50 @@ export default function Users() {
                     <InputText id="email" value={user.email} onChange={(e) => onInputChange(e, 'email')} required autoFocus className={classNames({ 'p-invalid': submitted && !user.email })} />
                     {submitted && !user.email && <small className="p-error">מייל חובה</small>}
                 </div>
-                <div className="card flex justify-content-center"> פעיל
-                    <Checkbox onChange={e => setCheckedp(e.checked)} checked={checkedp}>  </Checkbox>
-                </div>
-                {!user._id && (
-                    <div className="field">
-                        <label htmlFor="password" className="font-bold">
-                            סיסמה
-                        </label>
-                        <InputText id="password" value={user.password} onChange={(e) => onInputChange(e, 'password')} required className={classNames({ 'p-invalid': submitted && !user.password })} />
-                        {submitted && !user.password && <small className="p-error">סיסמה חובה</small>}
-                    </div>
-                )}
-
-                {/* <div className="card flex justify-content-center"> מורה    
-                    <Checkbox value={user.isTeacher} onChange={e => setCheckedm(e.checked)} checked={checkedm}>  </Checkbox> 
+                {/* <div className="card flex justify-content-center"> פעיל
+                    <Checkbox id='active' value={user.active} onChange={e => setCheckedp(e.checked)} checked={checkedp}>  </Checkbox>
                 </div> */}
+
+
+                {/* <div className="card flex justify-content-center"> מורה
+                    <Checkbox value={user.isTeacher} onChange={e => setCheckedm(e.checked)} checked={checkedm}>  </Checkbox>
+                </div> */}
+                <div className="flex flex-wrap gap-3"> תפקיד
+                    <div className="flex align-items-center">
+                        <RadioButton
+                            inputId="teacher"
+                            value="teacher"
+                            onChange={(e) => {
+                                setIngredient(e.value);
+                                setUser(prev => ({ ...prev, rolse: e.value }));
+                            }}
+                            checked={ingredient === 'teacher'}
+                        />                        <label htmlFor="ingredient1" className="ml-2">מורה</label>
+                    </div>
+                    <div className="flex align-items-center">
+                        <RadioButton
+                            inputId="supervisor"
+                            value="Supervisor"
+                            onChange={(e) => {
+                                setIngredient(e.value);
+                                setUser(prev => ({ ...prev, rolse: e.value }));
+                            }}
+                            checked={ingredient === 'Supervisor'}
+                        />
+                        <label htmlFor="ingredient2" className="ml-2">מפקחת</label>
+
+
+                    </div>
+                </div>
 
             </Dialog >
 
-            <Dialog visible={deleteUserDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Confirm" modal footer={deleteUserDialogFooter} onHide={hideDeleteUserDialog}>
+            <Dialog visible={deleteUserDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="אזהרה" modal footer={deleteUserDialogFooter} onHide={hideDeleteUserDialog}>
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                     {user && (
                         <span>
-                            Are you sure you want to delete <b>{user.name}</b>?
+                            למחוק את <b>{user.name}</b>?
                         </span>
                     )}
                 </div>

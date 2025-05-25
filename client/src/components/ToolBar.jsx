@@ -22,7 +22,7 @@ export default function CustomDemo() {
     const { register, handleSubmit } = useForm()
     const onSubmit = async (data) => {
         console.log(data)
-        const res = await axios.post('http://localhost:5555/api/auth/register', data)
+        const res = await axios.post('http://localhost:9999/api/auth/register', data)
         setDVisible(false)
     }
 
@@ -53,7 +53,7 @@ export default function CustomDemo() {
     const logIn = async () => {
         try {
             //const res = await login({ username: userName, password })
-            const res = await axios.post('http://localhost:5555/api/auth/login', { username: userName, password })
+            const res = await axios.post('http://localhost:9999/api/auth/login', { username: userName, password })
 
             dispatch(setUser(res.data.user));
             console.log(res.data.user)
@@ -82,7 +82,7 @@ export default function CustomDemo() {
             <div className="flex flex-wrap align-items-center gap-3">
                 {token ?
                     <button className="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
-                        <i className="pi pi-home text-6xl " onClick={() => { dispatch(logOut()); navigate('/') }} style={{ color: 'white', fontSize: '1.5rem', margin: '1rem' }}></i>
+                        <i className="pi pi-home text-6xl " onClick={() => { dispatch(logOut()); navigate('/') }} style={{ color: 'white', fontSize: '1.5rem', margin: '1rem', marginLeft: '2rem' }}></i>
                     </button> :
                     <button className="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
                         <i className="pi pi-user text-6xl" onClick={() => {setVisible(true); setUserName(null);setPassword(null)}} style={{ color: 'white', fontSize: '1.5rem', margin: '1rem', marginLeft: '2rem' }}></i>
