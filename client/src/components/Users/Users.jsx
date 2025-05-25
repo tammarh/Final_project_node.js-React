@@ -16,6 +16,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
 import { Checkbox } from "primereact/checkbox";
+import axios from 'axios';
 export default function Users() {
     let emptyUser = {
         _id: '',
@@ -215,9 +216,11 @@ export default function Users() {
     };
 
 
-    /*const statusBodyTemplate = (rowData) => {
-        return <Tag value={rowData.inventoryStatus} severity={getSeverity(rowData)}></Tag>;
-    };*/
+    
+    const statusBodyTemplate = (rowData) => {
+        return <Tag value={rowData.role} severity={getSeverity(rowData)}></Tag>;
+    }
+    
 
     const actionBodyTemplate = (rowData) => {
         return (
@@ -228,21 +231,18 @@ export default function Users() {
         );
     };
 
-    /*const getSeverity = (user) => {
-        switch (user.inventoryStatus) {
-            case 'INSTOCK':
+   const getSeverity = (user) => {
+        switch (user.role) {
+            case 'Supervisor':
                 return 'success';
 
-            case 'LOWSTOCK':
+            case 'teacher':
                 return 'warning';
-
-            case 'OUTOFSTOCK':
-                return 'danger';
 
             default:
                 return null;
         }
-    };*/
+    };
 
     const UserDialogFooter = (
         <React.Fragment>
@@ -282,8 +282,8 @@ export default function Users() {
                     <Column field="email" header="מייל" body={emailBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="rolse" header="תפקיד" sortable style={{ minWidth: '10rem' }}></Column>
                     <Column field="active" header="פעיל" sortable style={{ minWidth: '10rem' }}></Column>
-                    {/*<Column field="HourOfTeacher" header="מערכת" sortable style={{ minWidth: '10rem' }}></Column>
-                    <Column field="inventoryStatus" header="Status" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column> */}
+                    {/*<Column field="HourOfTeacher" header="מערכת" sortable style={{ minWidth: '10rem' }}></Column>*/}
+                    <Column field="role" header="תפקיד" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column> 
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem' }}></Column>
                 </DataTable>
             </div>
