@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema({
    },
    isTeacher:{
       type: Boolean,
-      default: false
+      default: true
    },
    HourOfTeacher:{
       type:[HourOfTeacher],

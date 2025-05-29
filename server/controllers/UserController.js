@@ -38,11 +38,11 @@ const createUser = async (req, res) => {
     res.status(201).json(user);
 }
 const updateUser = async (req, res) => {
-    const { id , username, password, name, email, role, active , isTeacher , HourOfTeacher} = req.body;
-    if(!id) {
+    const { _id , username, password, name, email, rolse, active , isTeacher , HourOfTeacher} = req.body;
+    if(!_id) {
         return res.status(400).json({ message: 'User ID is required' })
     }
-    const user = await User.findById(id)
+    const user = await User.findById(_id)
     if(!user) {
         return res.status(404).json({ message: ' not found User to update' })
     }
@@ -59,8 +59,8 @@ const updateUser = async (req, res) => {
     if(email) {
         user.email = email
     }
-    if(role) {
-        user.rolse = role
+    if(rolse) {
+        user.rolse = rolse
     }
     
     if(active) {

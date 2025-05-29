@@ -4,8 +4,8 @@ const userController = require('../controllers/UserController')
 const verifyJWT = require("../middleware/verifyJWT")
 const verifySupervisor = require("../middleware/verifySupervisor")
 
-// router.use(verifyJWT)
-// router.use(verifySupervisor)
+ router.use(verifyJWT)
+ router.use(verifySupervisor)
 
 router.get('/', userController.getAllUsers)
 router.get('/:id', userController.getUserById)
