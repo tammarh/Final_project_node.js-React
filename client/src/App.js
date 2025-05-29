@@ -24,7 +24,7 @@ function App() {
           <Route path="/SupportAllocation" element={<SupportAllocation />}></Route>
           <Route path="/Institution" element={<>Institution</>}></Route>
            <Route path="/Users" element={<Users />}></Route> 
-          <Route path="/TeacherHours" element={<>Schedule</>}></Route>
+          <Route path="/TeacherHours" element={<Schedule/>}></Route>
 
 
 

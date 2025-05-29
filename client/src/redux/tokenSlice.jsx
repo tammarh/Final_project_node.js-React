@@ -3,11 +3,19 @@ const i={
 token:null,
 user:{},
 role:""
+
 }
 const tokenSlice = createSlice({
     name: 'token',
     initialState: i,
     reducers: {
+        setCredentials: (state, action) => {
+            const { token, user , role } = action.payload;
+            state.token = token;
+            state.user = user;
+            state.role = role;
+            localStorage.setItem('token', token); // שומר בלוקאל
+          },/*
         setToken(state, action) {
             state.token = action.payload
         },
@@ -16,7 +24,7 @@ const tokenSlice = createSlice({
         },
         setRole(state, action) {
             state.role = action.payload
-        },
+        },*/
         logOut(state, action) {
             state.token = null;
             state.user = null;
@@ -26,5 +34,7 @@ const tokenSlice = createSlice({
     }
 })
 
-export const { setToken, logOut,setUser,setRole } = tokenSlice.actions
+export const {  logOut, setCredentials } = tokenSlice.actions
 export default tokenSlice.reducer
+
+//export const { setToken, logOut,setUser,setRole } = tokenSlice.actions

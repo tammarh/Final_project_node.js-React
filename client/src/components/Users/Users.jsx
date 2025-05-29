@@ -1,4 +1,4 @@
-import { getAllUsers, createUser, updateUser, deleteUser } from '../../services/userService';
+import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from '../../services/userService';
 import React, { useState, useEffect, useRef, act } from 'react';
 import { classNames } from 'primereact/utils';
 import { DataTable } from 'primereact/datatable';
@@ -15,7 +15,8 @@ import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
-import { Checkbox } from "primereact/checkbox";
+import { OverlayPanel } from 'primereact/overlaypanel';
+import axios from 'axios';
 
 export default function Users() {
     let emptyUser = {
@@ -24,9 +25,10 @@ export default function Users() {
         password: '',
         username: '',
         role: 'teacher',
-        isTeacher: false,
+        //isTeacher: false,
         active: false,
-        email: '@'
+        email: '@',
+        HourOfTeacher: []
     };
     const [users, setUsers] = useState([]);
     const [UserDialog, setUserDialog] = useState(false);
@@ -40,7 +42,7 @@ export default function Users() {
     const [checkedm, setCheckedm] = useState(false);
     const [ingredient, setIngredient] = useState('');
     const toast = useRef(null);
-    const dt = useRef(null);
+    const dt = useRef(null)
 
     const loadUsers = async () => {
         try {
@@ -149,33 +151,13 @@ export default function Users() {
         toast.current.show({ severity: 'success', summary: 'Successful', detail: 'users Deleted', life: 3000 });
     };
 
-    /*const onCategoryChange = (e) => {
-        let _user = { ...user };
 
-        _user['category'] = e.value;
-        setUser(_user);
-    };*/
 
     const onInputChange = (e, name) => {
-        // const val = (e.target && e.target.value) || '';
-        // let _user = { ...user };
-
-        // _user[`${name}`] = val;
-
-        // setUser(_user);
         const val = e.target.value;
         setUser(prevUser => ({ ...prevUser, [name]: val }));
 
     };
-
-    /*const onInputNumberChange = (e, name) => {
-        const val = e.value || 0;
-        let _user = { ...user };
-
-        _user[`${name}`] = val;
-
-        setUser(_user);
-    };*/
 
     const leftToolbarTemplate = () => {
         return (
@@ -217,7 +199,37 @@ export default function Users() {
                 {rowData.rolse === 'teacher' && <Button icon="pi pi-calendar-plus" rounded outlined severity="success" /*onClick={() => confirmDeleteuser(rowData)}*/ />}
             </React.Fragment>
         );
-    };
+    }
+
+    const ButtonBodyTemplate = (rowData) => {
+        const op = useRef(null)
+
+        const getDitails = (e) => {
+            op.current.toggle(e); console.log(rowData.HourOfTeacher)
+        }
+        return (
+
+            <div className="card flex justify-content-center">
+                <Button type="button" label="מערכת שעות" onClick={getDitails} />
+                <OverlayPanel ref={op}>
+                    <DataTable value={rowData.HourOfTeacher} tableStyle={{ minWidth: '50rem' }}>
+                        <Column field="Institution" header="מוסד"></Column>
+                        <Column field="integrationhours" header="שעות שילוב"></Column>
+                        <Column field="personalbasket" header="סל אישי"></Column>
+                        <Column field="additionforpersonalbasket" header="תוספת סל אישי"></Column>
+                        <Column header="סך הכל" body={(row) =>
+                            (row.integrationhours || 0) +
+                            (row.personalbasket || 0) +
+                            (row.additionforpersonalbasket || 0)
+                        }></Column>
+                        <Column field="education" header="חינוך"></Column>
+                        <Column field="firstgradeeducation" header="חינוך כיתה א"></Column>
+                    </DataTable>
+                </OverlayPanel>
+            </div>
+        );
+    }
+
 
     const getSeverity = (user) => {
         const rolse = user.rolse?.toLowerCase();
@@ -261,8 +273,7 @@ export default function Users() {
             <Toast ref={toast} />
             <div className="card" style={{ margin: '1.5rem' }}>
                 <Toolbar className="mb-4" right={leftToolbarTemplate} left={rightToolbarTemplate}></Toolbar>
-                {console.log(users)}
-                <DataTable ref={dt} value={users}  selection={selectedusers} onSelectionChange={(e) => setSelectedUsers(e.value)}
+                <DataTable ref={dt} value={users} selection={selectedusers} onSelectionChange={(e) => setSelectedUsers(e.value)}
                     dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} users" globalFilter={globalFilter} >
@@ -273,7 +284,7 @@ export default function Users() {
                     <Column field="email" header="מייל" body={emailBodyTemplate} sortable style={{ minWidth: '8rem', textAlign: 'right' }}></Column>
                     {/* <Column field="rolse" header="תפקיד" sortable style={{ minWidth: '10rem' }}></Column> */}
                     {/* <Column field="active" header="פעיל" sortable style={{ minWidth: '10rem' }}></Column> */}
-                    <Column field="_id" header="מערכת" sortable style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
+                    <Column body={ButtonBodyTemplate} header="מערכת" exportable={false} style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
                     <Column field="rolse" header="תפקיד" body={statusBodyTemplate} sortable style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
                 </DataTable>

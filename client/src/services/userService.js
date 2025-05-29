@@ -12,10 +12,10 @@ export const getUserById = async (id) => {
 };
 
 export const createUser = async (user) => {
-    const response = await api.post('/User', user);
+    const response = await api.post('/User', user );
     return response.data
      
-};
+}
 
 export const updateUser = async (user) => {
     console.log(user)

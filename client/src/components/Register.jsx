@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form"
+/*import { useForm } from "react-hook-form"
 import axios from "axios"
 
 export default function App() {
@@ -20,4 +20,4 @@ export default function App() {
       <input type="submit" />
     </form>
   )
-}
+}*/

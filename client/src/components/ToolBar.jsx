@@ -5,10 +5,9 @@ import React, { useState, useRef } from "react";
 import { InputText } from 'primereact/inputtext';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { setToken, setUser, setRole } from '../redux/tokenSlice';
+import {  setCredentials } from '../redux/tokenSlice';
 import { logOut } from '../redux/tokenSlice';
 import axios from 'axios';
-//import { register } from '../';
 import { set, useForm } from "react-hook-form"
 
 export default function CustomDemo() {
@@ -29,9 +28,9 @@ export default function CustomDemo() {
     const startContent = (
         <React.Fragment>
             <img
-                src="/fruit.jpg"
+                src="/logo.png"
                 alt="Logo"
-                style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+                style={{ width: '50px', height: '50px' }}
             />
         </React.Fragment>
     );
@@ -51,24 +50,16 @@ export default function CustomDemo() {
     );
 
     const logIn = async () => {
+
         try {
             //const res = await login({ username: userName, password })
             const res = await axios.post('http://localhost:9999/api/auth/login', { username: userName, password })
-
-            dispatch(setUser(res.data.user));
-            console.log(res.data.user)
-
-            dispatch(setRole(res.data.role));
-            console.log(res.data.role)
-
-            dispatch(setToken(res.data.token))
-            console.log(res.data.token)
-
+           dispatch(setCredentials({token:res.data.token, user: res.data.user, role: res.data.role}))
             if (res.status == 200) {
                 console.log('access')
                 setVisible(false)
                 navigate('./Institution')
-                console.log(res.data.role);
+                console.log(res.data.role)
             }
         }
         catch (error) {
@@ -85,7 +76,7 @@ export default function CustomDemo() {
                         <i className="pi pi-home text-6xl " onClick={() => { dispatch(logOut()); navigate('/') }} style={{ color: 'white', fontSize: '1.5rem', margin: '1rem', marginLeft: '2rem' }}></i>
                     </button> :
                     <button className="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
-                        <i className="pi pi-user text-6xl" onClick={() => {setVisible(true); setUserName(null);setPassword(null)}} style={{ color: 'white', fontSize: '1.5rem', margin: '1rem', marginLeft: '2rem' }}></i>
+                        <i className="pi pi-user text-6xl" onClick={() => { setVisible(true); setUserName(null); setPassword(null) }} style={{ color: 'white', fontSize: '1.5rem', margin: '1rem', marginLeft: '2rem' }}></i>
                     </button>}
                 <Dialog
                     visible={visible}
@@ -104,13 +95,11 @@ export default function CustomDemo() {
                         >
                             <div className="flex justify-content-center">
                                 <img
-                                    src="/fruit.jpg"
+                                    src="/logo.png"
                                     alt="Logo"
                                     style={{
                                         width: '60px',
-                                        height: '60px',
-                                        borderRadius: '50%',
-                                        border: '2px solid white'
+                                        height: '60px'
                                     }}
                                 />
                             </div>
@@ -154,12 +143,6 @@ export default function CustomDemo() {
                                     className="p-button-outlined p-button-sm w-full text-white"
                                     style={{ borderColor: 'white', color: 'white' }}
                                 />
-                                {/* <Button
-                                    label="הרשמה"
-                                    onClick={(e) => hide(e)}
-                                    className="p-button-outlined p-button-sm w-full text-white"
-                                    style={{ borderColor: 'white', color: 'white' }}
-                                /> */}
                                 <div className="card flex justify-content-center">
                                     <Button
                                         label="הרשמה"
@@ -189,7 +172,7 @@ export default function CustomDemo() {
 
 
 
-                                                    <div className="inline-flex flex-column gap-2">
+                                                    <div className="inline-flex flex-column gap-4">
                                                         <label
                                                             htmlFor="username"
                                                             className="text-primary-50 font-semibold"
@@ -203,7 +186,7 @@ export default function CustomDemo() {
                                                             className="bg-white-alpha-20 border-none p-3 text-primary-50"
                                                         ></InputText>
                                                     </div>
-                                                    <div className="inline-flex flex-column gap-2">
+                                                    <div className="inline-flex flex-column gap-4">
                                                         <label
                                                             htmlFor="username"
                                                             className="text-primary-50 font-semibold"
@@ -218,7 +201,7 @@ export default function CustomDemo() {
                                                             type="password"
                                                         ></InputText>
                                                     </div>
-                                                    <div className="inline-flex flex-column gap-2">
+                                                    <div className="inline-flex flex-column gap-4">
                                                         <label
                                                             htmlFor="name"
                                                             className="text-primary-50 font-semibold"
@@ -232,7 +215,7 @@ export default function CustomDemo() {
                                                             className="bg-white-alpha-20 border-none p-3 text-primary-50"
                                                         ></InputText>
                                                     </div>
-                                                    <div className="inline-flex flex-column gap-2">
+                                                    <div className="inline-flex flex-column gap-4">
                                                         <label
                                                             htmlFor="email"
                                                             className="text-primary-50 font-semibold"
@@ -246,7 +229,7 @@ export default function CustomDemo() {
                                                             className="bg-white-alpha-20 border-none p-3 text-primary-50"
                                                         ></InputText>
                                                     </div>
-                                                    <div className="flex align-items-center gap-2">
+                                                    <div className="flex align-items-center gap-4">
                                                         <Button
                                                             label="Sign-In"
                                                             type="submit"
