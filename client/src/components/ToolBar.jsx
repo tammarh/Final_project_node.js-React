@@ -99,7 +99,8 @@ export default function CustomDemo() {
                                     alt="Logo"
                                     style={{
                                         width: '60px',
-                                        height: '60px'
+                                        height: '60px',
+                                        margin: '0.5rem ',
                                     }}
                                 />
                             </div>
@@ -149,7 +150,7 @@ export default function CustomDemo() {
                                         //icon="pi pi-user"
                                         onClick={() => setDVisible(true)}
                                         className="p-button-outlined p-button-sm w-full text-white"
-                                        style={{ borderColor: 'white', color: 'white' }}
+                                        style={{ borderColor: 'blue', color: 'white' }}
                                     />
                                     <Dialog
                                         visible={dvisible}
@@ -177,7 +178,7 @@ export default function CustomDemo() {
                                                             htmlFor="username"
                                                             className="text-primary-50 font-semibold"
                                                         >
-                                                            Username
+                                                            שם משתמש 
                                                         </label>
                                                         <InputText
                                                             id="username"
@@ -191,7 +192,7 @@ export default function CustomDemo() {
                                                             htmlFor="username"
                                                             className="text-primary-50 font-semibold"
                                                         >
-                                                            Password
+                                                            סיסמא
                                                         </label>
                                                         <InputText
                                                             id="password"
@@ -206,7 +207,7 @@ export default function CustomDemo() {
                                                             htmlFor="name"
                                                             className="text-primary-50 font-semibold"
                                                         >
-                                                            name
+                                                            שם
                                                         </label>
                                                         <InputText
                                                             id="name"
@@ -220,7 +221,7 @@ export default function CustomDemo() {
                                                             htmlFor="email"
                                                             className="text-primary-50 font-semibold"
                                                         >
-                                                            Email
+                                                            מייל
                                                         </label>
                                                         <InputText
                                                             id="email"

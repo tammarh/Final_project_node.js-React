@@ -65,3 +65,15 @@
     text-align: right;
     direction: rtl;
 }
+
+/* ריווח סביב כל InputText של PrimeReact */
+.p-inputtext {
+  margin: 1rem; /* ריווח חיצוני */
+}
+
+.custom-small-input .p-calendar-input {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  height: 2rem; /* הנמכת גובה */
+  min-height: 2rem;
+}

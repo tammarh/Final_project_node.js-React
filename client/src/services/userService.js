@@ -25,6 +25,6 @@ export const updateUser = async (user) => {
 };
 
 export const deleteUser = async (id) => {
-    const response = await api.delete(`/User/${id}`,{headers:{Authorization: `Bearer ${localStorage.getItem('token')}`}});  
+    const response = await api.delete(`/User/${id}`);  
     return response.data;
 }

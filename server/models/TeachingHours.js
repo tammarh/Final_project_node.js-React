@@ -78,7 +78,9 @@ TeachingHoursSchema.pre('save', function(next) {
     const validDesignations = sourceDesignationMap[source];
 
     if (!validDesignations || !validDesignations.includes(designation)) {
-        return next(new Error(`Invalid designation ${designation} for source ${source}`));
+        const error = new Error(`Invalid designation "${designation}" for source "${source}"`);
+        err.statusCode = 422;
+        return next(error)    
     }
     next();
 })
@@ -92,6 +94,7 @@ TeachingHoursSchema.pre('findOneAndUpdate', function (next) {
         const validDesignations = sourceDesignationMap[source];
         if (!validDesignations || !validDesignations.includes(designation)) {
             const error = new Error(`Invalid designation "${designation}" for source "${source}"`);
+            err.statusCode = 422;
             return next(error);
         }
     }

@@ -1,7 +1,7 @@
 const TeachingHours = require('../models/TeachingHours')
 
 const getAllTHours = async (req, res) => {
-    const tHour = await TeachingHours.find().populate({path: 'institution',select:'institutionName settlement localAuthority Supervisor '})
+    const tHour = await TeachingHours.find().populate({path: 'institution',select:'institutionSymbol institutionName settlement localAuthority Supervisor '})
     if (!tHour)
         return res.status(204).json({ message: [] })
     res.json(tHour)

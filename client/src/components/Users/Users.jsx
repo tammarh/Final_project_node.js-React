@@ -24,7 +24,7 @@ export default function Users() {
         name: '',
         password: '',
         username: '',
-        role: 'teacher',
+        rolse: 'teacher',
         //isTeacher: false,
         active: false,
         email: '@',
@@ -121,19 +121,6 @@ export default function Users() {
         toast.current.show({ severity: 'success', summary: 'Successful', detail: 'user Deleted', life: 3000 });
     };
 
-    const findIndexById = (id) => {
-        let index = -1;
-
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
-
     const exportCSV = () => {
         dt.current.exportCSV();
     };
@@ -163,7 +150,6 @@ export default function Users() {
         return (
             <div className="flex flex-wrap gap-2" >
                 <Button label="חדש" icon="pi pi-plus" severity="success" onClick={openNew} style={{ margin: '0.5rem' }} />
-                {/* <Button label="מחיקה" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedusers || !selectedusers.length} style={{ margin: '0.5rem' }} /> */}
                 <Button label="הורדה" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} style={{ margin: '0.5rem' }} />;
             </div>
         );
@@ -210,10 +196,10 @@ export default function Users() {
         return (
 
             <div className="card flex justify-content-center">
-                <Button type="button" label="מערכת שעות" onClick={getDitails} />
+               { rowData.rolse==='teacher'&&(<Button type="button" label="מערכת שעות" onClick={getDitails} />)}
                 <OverlayPanel ref={op}>
                     <DataTable value={rowData.HourOfTeacher} tableStyle={{ minWidth: '50rem' }}>
-                        <Column field="Institution" header="מוסד"></Column>
+                        <Column field="institutionName" header="מוסד"></Column>
                         <Column field="integrationhours" header="שעות שילוב"></Column>
                         <Column field="personalbasket" header="סל אישי"></Column>
                         <Column field="additionforpersonalbasket" header="תוספת סל אישי"></Column>
