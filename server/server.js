@@ -20,6 +20,7 @@ app.use('/api/IntegrationHour',require('./routes/IntegrationHoursRoute'))
 app.use('/api/PersonalBasketHours',require('./routes/PersonalBasketHoursRoute'))
 app.use('/api/PersonalBasketStudent',require('./routes/PersonalBasketStudentRoute'))
 app.use('/api/SupportAllocation',require('./routes/SupportAllocationRoute'))
+app.use('/api/TeachersDetails',require('./routes/TeachersDetailsRoute'))
 app.use('/api/User',require('./routes/userRoute'))
 app.use('/api/auth',require('./routes/authRoute'))
 mongoose.connection.once('open', () => {
