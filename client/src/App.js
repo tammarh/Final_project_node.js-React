@@ -7,6 +7,8 @@ import ToolBar from './components/ToolBar';
 import Users from './components/Users/Users'
 import { useSelector } from 'react-redux';
 import HomePaageHours from './components/hours/HomePageHours'
+import TeacherList from './components/Teachers/TeachersList';
+
 
 function App() {
   const {token} = useSelector((state)=>state.token)
@@ -19,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/Students" element={<>Students</>}></Route>
           <Route path="/Hours" element={<HomePaageHours/>}></Route>
-          <Route path="/Teachers" element={<>Teachers</>}></Route>
+        <Route path="/Teachers" element={<TeacherList/>}></Route>
           <Route path="/SupportAllocation" element={<SupportAllocation />}></Route>
           <Route path="/Institution" element={<>Institution</>}></Route>
            <Route path="/Users" element={<Users />}></Route> 
