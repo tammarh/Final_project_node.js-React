@@ -1,16 +1,17 @@
 
 import React, { useState } from 'react';
-import { Accordion, AccordionTab } from 'primereact/accordion';
+import { Accordion, AccordionTab } from 'primereact/accordion'
 import TeachingHours from './TeachingHour/TeachingHours'
 import IntegrationHours from './IntegrationHour/IntegrationHours'
-import PersonalBasketHours from './PersonalBasketHours'
-import { InputText } from 'primereact/inputtext';
-import { InputIcon } from 'primereact/inputicon';
+import PersonalBasketHours from './PersonalBasketHour/PersonalBasketHours'
+import { InputText } from 'primereact/inputtext'
+import { InputIcon } from 'primereact/inputicon'
 import { IconField } from 'primereact/iconfield'
 import { Button } from 'primereact/button'
 import '../hours/hours.css'
 import CreateIHour from './IntegrationHour/CreateIHour'
 import CreateTHour from './TeachingHour/CreateTHour'
+import CreatePHour from './PersonalBasketHour/CreatePHour'
 export default function HomePage() {
     const [globalFilter, setGlobalFilter] = useState(null)
     const [icreateVisible, setIcreateVisible] = useState(false)
@@ -84,6 +85,7 @@ export default function HomePage() {
 
             <CreateIHour icreateVisible={icreateVisible} setIcreateVisible={setIcreateVisible} onSuccess={triggerReloadIHours}/>
             <CreateTHour tcreateVisible={tcreateVisible} setTcreateVisible={setTcreateVisible} onSuccess={triggerReloadIHours}/>
+            <CreatePHour pcreateVisible={pcreateVisible} setPcreateVisible={setPcreateVisible} onSuccess={triggerReloadIHours}/>
         </div>
     </>
 
