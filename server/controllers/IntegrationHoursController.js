@@ -2,7 +2,7 @@ const IntegrationHours = require('../models/IntegrationHours')
 const Institution = require('../models/Institution')
 
 const getAllIHours = async (req,res)=>{
-    const IHour = await IntegrationHours.find().populate({path: 'institution',select:'institutionName settlement localAuthority Supervisor '})
+    const IHour = await IntegrationHours.find().populate({path: 'institution',select:'institutionSymbol institutionName settlement localAuthority Supervisor '})
     if(!IHour)
         return res.status(400).json({message:'not found Integration Hours'})
     res.json(IHour)
@@ -29,16 +29,14 @@ const createIntegrationHours = async (req,res)=>{
     const Institutionn = await Institution.findById(institution)
     if (!Institutionn || !Institutionn.shiluv) {
         return res.status(400).json({ message: 'נתוני מוסד לא תקינים עבור חישוב מכסה שילוב' });
-      }
-    if(designation ==='21 - שעות הכנה')
-        calculatedQuota =Institutionn.shiluv.achana   
+      } 
     const newIhour = await IntegrationHours.create({institution,grade,equivalent,studentsAllocation,classType,source,designation,
         fromDate,untilDate,calculatedQuota,actualQuota})
     res.json(newIhour)
 }
 
 const updateIntegrationHour = async (req,res)=>{
-    const {_id,source,designation,fromDate,untilDate,calculatedQuota,actualQuota} = req.body
+    const {_id,institution,source,designation,fromDate,untilDate,calculatedQuota,actualQuota} = req.body
     if(!_id)
         return res.status(400).json({massage:'missing id'})
     const IntegrationHour = await IntegrationHours.findOne({_id})
@@ -46,6 +44,8 @@ const updateIntegrationHour = async (req,res)=>{
         return res.status(400).json({massage:'not found IntegrationHour to update'})
     if(source)
         IntegrationHour.source = source
+    if(institution)
+        IntegrationHour.institution = institution
     if(designation)
         IntegrationHour.designation = designation
     if(fromDate)

@@ -1,0 +1,51 @@
+/* רקע הדיאלוג */
+.p-dialog .p-dialog-content {
+    background-color: #ffffff;
+    padding: 2rem;
+  }
+  
+  /* כותרת */
+  .dialog-title {
+    text-align: center;
+    color: #003366;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* תוויות שדות */
+  .p-field label {
+    color: #333;
+    font-weight: 500;
+    /*margin-bottom: 0.3rem;*/
+    display: block;
+  }
+  
+  /* שדות קלט */
+  .p-inputtext,
+  .p-dropdown,
+  .p-calendar,
+  .p-inputnumber {
+    width: 100%;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+  
+  /* כפתור */
+  .p-button-update {
+    background-color: #0057a8;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .p-button-update:hover {
+    background-color: #004080;
+  }
+  
+  

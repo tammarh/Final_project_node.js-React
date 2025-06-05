@@ -154,6 +154,7 @@ export default function TeachingHours({ globalFilter }) {
 
             await updateTeachingHour(data)
             setUpdateVisible(false)
+            setVisible(false)
             loudData()
         }
         catch (error) {
@@ -176,7 +177,7 @@ export default function TeachingHours({ globalFilter }) {
         return (
             <>
                 <div className="flex flex-wrap justify-content-center gap-2 mb-2">
-                    <Button label={rowData.institution.institutionName} onClick={() => { setVisible(true); setSelectedRow(rowData) }} className="p-button-warning" style={{ minWidth: '10rem' }} />
+                    <Button label={rowData.institution.institutionName} onClick={() => { setVisible(true); setSelectedRow(rowData) }} className="p-button-warning" style={{ width: '10rem' ,backgroundColor:'lightgreen'}} />
                 </div></>)
     }
 
