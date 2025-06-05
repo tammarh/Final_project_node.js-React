@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
-import TeachingHours from './TeachingHours'
+import TeachingHours from './TeachingHour/TeachingHours'
 import IntegrationHours from './IntegrationHour/IntegrationHours'
 import PersonalBasketHours from './PersonalBasketHours'
 import { InputText } from 'primereact/inputtext';
@@ -9,7 +9,8 @@ import { InputIcon } from 'primereact/inputicon';
 import { IconField } from 'primereact/iconfield'
 import { Button } from 'primereact/button'
 import '../hours/hours.css'
-import CreateIHour from './IntegrationHour/CreateIHour';
+import CreateIHour from './IntegrationHour/CreateIHour'
+import CreateTHour from './TeachingHour/CreateTHour'
 export default function HomePage() {
     const [globalFilter, setGlobalFilter] = useState(null)
     const [icreateVisible, setIcreateVisible] = useState(false)
@@ -82,7 +83,7 @@ export default function HomePage() {
             </Accordion>
 
             <CreateIHour icreateVisible={icreateVisible} setIcreateVisible={setIcreateVisible} onSuccess={triggerReloadIHours}/>
-
+            <CreateTHour tcreateVisible={tcreateVisible} setTcreateVisible={setTcreateVisible} onSuccess={triggerReloadIHours}/>
         </div>
     </>
 
