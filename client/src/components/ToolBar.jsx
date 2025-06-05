@@ -86,7 +86,7 @@ export default function CustomDemo() {
                             className="flex flex-column px-6 py-6 gap-5"
                             style={{
                                 borderRadius: '1rem',
-                                backgroundImage: 'radial-gradient(circle at top left, #FFB74D, #F57C00)',
+                                backgroundImage: 'radial-gradient(circle at top left,rgb(35, 156, 255),rgb(156, 234, 255))',
                                 width: '24rem',
                                 boxShadow: '0 6px 24px rgba(0, 0, 0, 0.25)',
                                 fontFamily: 'Arial, sans-serif',
@@ -122,7 +122,7 @@ export default function CustomDemo() {
                                     className="p-inputtext p-component"
                                     style={{
                                         backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                                        border: '1.5px solid #FFA726',
+                                        border: '1.5px solidrgb(255, 255, 255)',
                                         borderRadius: '6px',
                                         color: 'white',
                                         padding: '0.7rem 1rem',
@@ -168,7 +168,6 @@ export default function CustomDemo() {
                                     onClick={logIn}
                                     className="p-button p-button-sm w-full"
                                     style={{
-                                        backgroundColor: '#EF6C00',
                                         border: 'none',
                                         fontWeight: '600',
                                         fontSize: '1rem',
