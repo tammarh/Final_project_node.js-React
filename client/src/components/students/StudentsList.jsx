@@ -5,6 +5,8 @@ import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
+import { Dialog } from 'primereact/dialog';
+import AddBasketStudentForm from './AddStudentForm';
 import axios from 'axios';
 
 const BasketStudentsTable = () => {
@@ -12,6 +14,8 @@ const BasketStudentsTable = () => {
     const [loading, setLoading] = useState(true);
     const [expandedRows, setExpandedRows] = useState([]);
     const [selectedSortField, setSelectedSortField] = useState(null);
+    const [showAddForm, setShowAddForm] = useState(false);
+
 
     const sortOptions = [
         { label: 'שם', value: 'name' },
@@ -19,19 +23,39 @@ const BasketStudentsTable = () => {
         { label: 'מוגבלות', value: 'disability' },
     ];
 
+    // useEffect(() => {
+    //     const fetchStudents = async () => {
+    //         try {
+    //             const res = await axios.get('http://localhost:8888/api/PersonalBasketStudent');
+    //             setStudents(res.data);
+    //         } catch (error) {
+    //             console.error("Failed to fetch students:", error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+    //     fetchStudents();
+    // }, []);
+
+    const fetchStudents = async () => {
+        try {
+            const res = await axios.get('http://localhost:8888/api/PersonalBasketStudent');
+            setStudents(res.data);
+        } catch (error) {
+            console.error('שגיאה בשליפת נתונים', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchStudents = async () => {
-            try {
-                const res = await axios.get('http://localhost:9999/api/PersonalBasketStudent');
-                setStudents(res.data);
-            } catch (error) {
-                console.error("Failed to fetch students:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchStudents();
     }, []);
+
+    const handleStudentAdded = () => {
+        setShowAddForm(false);
+        fetchStudents(); 
+    };
+
+
 
     const renderEntitlements = (rowData) => {
         return (
@@ -96,6 +120,10 @@ const BasketStudentsTable = () => {
                 />
             </div>
 
+            <div className="flex justify-end mb-3">
+                <Button label="הוסף תלמיד חדש" icon="pi pi-user-plus" onClick={() => setShowAddForm(true)} />
+            </div>
+
             <DataTable
                 value={students}
                 dataKey="_id"
@@ -133,6 +161,17 @@ const BasketStudentsTable = () => {
                     style={{ textAlign: 'center', width: '8rem' }}
                 />
             </DataTable>
+
+            <Dialog
+                header="הוספת תלמיד חדש"
+                visible={showAddForm}
+                onHide={() => setShowAddForm(false)}
+                style={{ width: '40vw' }}
+                modal
+            >
+                <AddBasketStudentForm onStudentAdded={handleStudentAdded} />
+            </Dialog>
+
         </div>
     );
 };

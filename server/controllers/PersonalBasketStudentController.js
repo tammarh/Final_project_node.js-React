@@ -13,12 +13,37 @@ const getStudentSortByDisability = async (req, res) => {
     res.json(allBasketStudents)
 }
 
+// const createNewBasketStudent = async (req, res) => {
+//     console.log("createNewBasketStudent");
+//     const { institution, details, entitlementHours } = req.body;
+//     const newBasketStudent = await PersonalBasketStudent.create({ institution, details, entitlementHours });
+//     // const savedBasketStudent = await newBasketStudent.save();
+//     res.json(savedBasketStudent);
+//     console.log("New BasketStudent created:", savedBasketStudent);
+// }
+
 const createNewBasketStudent = async (req, res) => {
+  try {
     const { institution, details, entitlementHours } = req.body;
-    const newBasketStudent = await PersonalBasketStudent.create({ institution, details, entitlementHours });
-    const savedBasketStudent = await newBasketStudent.save();
-    res.json(savedBasketStudent);
-}
+
+    // Validate required fields before create
+    if (!institution || !details || !entitlementHours) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const newBasketStudent = await PersonalBasketStudent.create({
+      institution,
+      details,
+      entitlementHours
+    });
+
+    res.status(201).json(newBasketStudent);
+    console.log("New BasketStudent created:", newBasketStudent);
+  } catch (err) {
+    console.error("Error in createNewBasketStudent:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+};
 
 const getBasketStudentById = async (req, res) => {
     const { id } = req.query; 
