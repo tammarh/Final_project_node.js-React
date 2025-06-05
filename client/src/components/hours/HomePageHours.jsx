@@ -2,16 +2,22 @@
 import React, { useState } from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import TeachingHours from './TeachingHours'
-import IntegrationHours from './IntegrationHours'
+import IntegrationHours from './IntegrationHour/IntegrationHours'
 import PersonalBasketHours from './PersonalBasketHours'
 import { InputText } from 'primereact/inputtext';
 import { InputIcon } from 'primereact/inputicon';
 import { IconField } from 'primereact/iconfield'
 import { Button } from 'primereact/button'
 import '../hours/hours.css'
-
-export default function BasicDemo() {
+import CreateIHour from './IntegrationHour/CreateIHour';
+export default function HomePage() {
     const [globalFilter, setGlobalFilter] = useState(null)
+    const [icreateVisible, setIcreateVisible] = useState(false)
+    const [tcreateVisible, setTcreateVisible] = useState(false)
+    const [pcreateVisible, setPcreateVisible] = useState(false)
+    const [reloadIHours, setReloadIHours] = useState(false);
+    const triggerReloadIHours = () => setReloadIHours(prev => !prev);
+
     const handleAddNewTeachingHour = () => {
         console.log('ok')
 
@@ -34,8 +40,8 @@ export default function BasicDemo() {
                             <Button
                                 label="הוסף חדש"
                                 className="p-button-text p-button-sm"
-                                onClick={handleAddNewTeachingHour}
-                                style={{ marginRight: '1rem' ,  fontWeight: 'bold'}}
+                                onClick={() => setTcreateVisible(true)}
+                                style={{ marginRight: '1rem', fontWeight: 'bold' }}
                             />
                         </div>
                     }
@@ -50,13 +56,13 @@ export default function BasicDemo() {
                             <Button
                                 label="הוסף חדש"
                                 className="p-button-text p-button-sm"
-                                onClick={handleAddNewTeachingHour}
-                                style={{ marginRight: '1rem' ,  fontWeight: 'bold'}}
+                                onClick={() => setIcreateVisible(true)}
+                                style={{ marginRight: '1rem', fontWeight: 'bold' }}
                             />
                         </div>
                     }
                 >
-                    <IntegrationHours globalFilter={globalFilter} />
+                    <IntegrationHours globalFilter={globalFilter} reload={reloadIHours}/>
                 </AccordionTab>
                 <AccordionTab
                     header={
@@ -65,8 +71,8 @@ export default function BasicDemo() {
                             <Button
                                 label="הוסף חדש"
                                 className="p-button-text p-button-sm"
-                                onClick={handleAddNewTeachingHour}
-                                style={{ marginRight: '1rem' ,  fontWeight: 'bold'}}
+                                onClick={() => setPcreateVisible(true)}
+                                style={{ marginRight: '1rem', fontWeight: 'bold' }}
                             />
                         </div>
                     }
@@ -74,9 +80,12 @@ export default function BasicDemo() {
                     <PersonalBasketHours globalFilter={globalFilter} />
                 </AccordionTab>
             </Accordion>
-        </div>
-        </>
 
-        
+            <CreateIHour icreateVisible={icreateVisible} setIcreateVisible={setIcreateVisible} onSuccess={triggerReloadIHours}/>
+
+        </div>
+    </>
+
+
     )
 }

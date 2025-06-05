@@ -66,10 +66,6 @@
     direction: rtl;
 }
 
-/* ריווח סביב כל InputText של PrimeReact */
-.p-inputtext {
-  margin: 1rem; /* ריווח חיצוני */
-}
 
 /* .custom-small-input .p-calendar-input {
   font-size: 0.8rem;

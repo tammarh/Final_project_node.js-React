@@ -277,16 +277,12 @@ export default function Users() {
             <div className="card" style={{ margin: '1.5rem' }}>
                 <Toolbar className="mb-4" right={leftToolbarTemplate} left={rightToolbarTemplate}></Toolbar>
                 <DataTable ref={dt} value={users} selection={selectedusers} onSelectionChange={(e) => setSelectedUsers(e.value)}
-                    dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+                    dataKey="id" paginator rows={10} 
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} users" globalFilter={globalFilter} >
-                    {/* <Column selectionMode="multiple" exportable={false}></Column> */}
-                    {/* <Column field="id" header="מזהה" style={{ minWidth: '12rem' }}></Column> */}
                     <Column field="username" header="שם משתמש" style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
                     <Column field="name" header="שם" sortable style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
                     <Column field="email" header="מייל" body={emailBodyTemplate} sortable style={{ minWidth: '8rem', textAlign: 'right' }}></Column>
-                    {/* <Column field="rolse" header="תפקיד" sortable style={{ minWidth: '10rem' }}></Column> */}
-                    {/* <Column field="active" header="פעיל" sortable style={{ minWidth: '10rem' }}></Column> */}
                     <Column body={ButtonBodyTemplate} header="מערכת" exportable={false} style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
                     <Column field="rolse" header="תפקיד" body={statusBodyTemplate} sortable style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem', textAlign: 'right' }}></Column>
