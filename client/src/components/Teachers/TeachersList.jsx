@@ -13,7 +13,7 @@ const TeachersList = () => {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const res = await axios.get('http://localhost:8888/api/teachersDetails');
+        const res = await axios.get('http://localhost:9999/api/teachersDetails');
         setTeachers(res.data);
       } catch (err) {
         console.error('שגיאה בקבלת רשימת המורים:', err);

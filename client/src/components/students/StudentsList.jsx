@@ -22,7 +22,7 @@ const BasketStudentsTable = () => {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const res = await axios.get('http://localhost:8888/api/PersonalBasketStudent');
+                const res = await axios.get('http://localhost:9999/api/PersonalBasketStudent');
                 setStudents(res.data);
             } catch (error) {
                 console.error("Failed to fetch students:", error);
@@ -47,7 +47,7 @@ const BasketStudentsTable = () => {
         setSelectedSortField(field);
         setLoading(true);
         try {
-            const res = await axios.get(`http://localhost:8888/api/PersonalBasketStudent/sortby?sortBy=${field}`);
+            const res = await axios.get(`http://localhost:9999/api/PersonalBasketStudent/sortby?sortBy=${field}`);
             setStudents(res.data);
         } catch (error) {
             console.error("Failed to fetch sorted students:", error);

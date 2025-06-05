@@ -38,6 +38,8 @@ const createUser = async (req, res) => {
     res.status(201).json(user);
 }
 const updateUser = async (req, res) => {
+    console.log(`req: ${req.body.HourOfTeacher}`);
+    
     const { _id , username, password, name, email, rolse, active , isTeacher , HourOfTeacher} = req.body;
     if(!_id) {
         return res.status(400).json({ message: 'User ID is required' })
@@ -50,7 +52,7 @@ const updateUser = async (req, res) => {
     if(!existsingUser) {
         user.username = username
     }
-    if (password) {
+    if (password && !password.startsWith('$2b$')) {
         user.password = await bcrypt.hash(password, 10);
     }
     if(name) {
@@ -66,9 +68,9 @@ const updateUser = async (req, res) => {
     if(active) {
         user.active = active
     }
-    if(isTeacher) {
-        user.isTeacher = isTeacher
-    }
+    if (typeof isTeacher !== 'undefined') {
+        user.isTeacher = isTeacher;
+    }   
     if(HourOfTeacher) {
         user.HourOfTeacher = HourOfTeacher
     }

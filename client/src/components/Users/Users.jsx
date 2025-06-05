@@ -16,7 +16,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
 import { OverlayPanel } from 'primereact/overlaypanel';
-import axios from 'axios';
+import TeacherHoursDialog from '../Users/TeacherHoursDialog';
 
 export default function Users() {
     let emptyUser = {
@@ -25,7 +25,6 @@ export default function Users() {
         password: '',
         username: '',
         rolse: 'teacher',
-        //isTeacher: false,
         active: false,
         email: '@',
         HourOfTeacher: []
@@ -38,8 +37,7 @@ export default function Users() {
     const [selectedusers, setSelectedUsers] = useState(null);
     const [submitted, setSubmitted] = useState(false);
     const [globalFilter, setGlobalFilter] = useState(null);
-    const [checkedp, setCheckedp] = useState(false);
-    const [checkedm, setCheckedm] = useState(false);
+    const [showHoursDialog, setShowHoursDialog] = useState(false);
     const [ingredient, setIngredient] = useState('');
     const toast = useRef(null);
     const dt = useRef(null)
@@ -138,6 +136,25 @@ export default function Users() {
         toast.current.show({ severity: 'success', summary: 'Successful', detail: 'users Deleted', life: 3000 });
     };
 
+    const openHoursDialog = (rowData) => {
+        setUser({ ...rowData });
+        setIngredient(rowData.rolse);
+        setShowHoursDialog(true);
+    };
+
+    const saveHours = async () => {
+        try {
+            console.log(user)
+            await updateUser(user)
+            console.log('ok')
+            toast.current.show({ severity: 'success', summary: 'הצלחה', detail: 'השעות עודכנו', life: 3000 });
+            await loadUsers();
+            setShowHoursDialog(false);
+        } catch (error) {
+            toast.current.show({ severity: 'error', summary: 'שגיאה', detail: 'שגיאה בעדכון השעות', life: 3000 });
+            console.error(error);
+        }
+    };
 
 
     const onInputChange = (e, name) => {
@@ -182,7 +199,7 @@ export default function Users() {
             <React.Fragment>
                 <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => editUser(rowData)} style={{ marginLeft: '2rem' }} />
                 <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => confirmDeleteuser(rowData)} style={{ marginLeft: '2rem' }} />
-                {rowData.rolse === 'teacher' && <Button icon="pi pi-calendar-plus" rounded outlined severity="success" /*onClick={() => confirmDeleteuser(rowData)}*/ />}
+                {rowData.rolse === 'teacher' && <Button icon="pi pi-calendar-plus" rounded outlined severity="success" onClick={() => openHoursDialog(rowData)} />}
             </React.Fragment>
         );
     }
@@ -196,7 +213,7 @@ export default function Users() {
         return (
 
             <div className="card flex justify-content-center">
-               { rowData.rolse==='teacher'&&(<Button type="button" label="מערכת שעות" onClick={getDitails} />)}
+                {rowData.rolse === 'teacher' && (<Button type="button" label="מערכת שעות" onClick={getDitails} />)}
                 <OverlayPanel ref={op}>
                     <DataTable value={rowData.HourOfTeacher} tableStyle={{ minWidth: '50rem' }}>
                         <Column field="institutionName" header="מוסד"></Column>
@@ -363,7 +380,13 @@ export default function Users() {
                 </div>
             </Dialog>
 
-
+            <TeacherHoursDialog
+                visible={showHoursDialog}
+                onHide={() => setShowHoursDialog(false)}
+                user={user}
+                setUser={setUser}
+                onSave={saveHours}
+            />
         </div>
     );
 }
