@@ -8,7 +8,7 @@ import Users from './components/Users/Users'
 import { useSelector } from 'react-redux';
 import HomePaageHours from './components/hours/HomePageHours'
 import TeacherList from './components/Teachers/TeachersList';
-import BasketStudentsTable from './components/students/StudentList';
+import BasketStudentsTable from './components/students/StudentsList';
 
 
 
