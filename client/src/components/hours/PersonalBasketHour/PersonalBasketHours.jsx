@@ -18,9 +18,7 @@ export default function PersonalBasketHours({ globalFilter }) {
     const loudData = async () => {
         try {
             const data = await getAllpHours();
-            console.log("Teaching Hours Data:", data);
             setPhour(data);
-            console.log("Teaching Hours State:", phour);
         } catch (error) {
             console.error("Error loading teaching hours:", error);
         }

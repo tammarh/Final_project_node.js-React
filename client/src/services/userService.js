@@ -18,9 +18,7 @@ export const createUser = async (user) => {
 }
 
 export const updateUser = async (user) => {
-    console.log(user)
     const response = await api.put('/User', user);
-    console.log(response.data);
     return response.data;
 };
 

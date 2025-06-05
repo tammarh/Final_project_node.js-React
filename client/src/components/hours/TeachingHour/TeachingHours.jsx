@@ -16,9 +16,7 @@ export default function TeachingHours({ globalFilter }) {
     const loudData = async () => {
         try {
             const data = await getAlltHours();
-            console.log("Teaching Hours Data:", data);
             setThour(data);
-            console.log("Teaching Hours State:", thour);
         } catch (error) {
             console.error("Error loading teaching hours:", error);
         }

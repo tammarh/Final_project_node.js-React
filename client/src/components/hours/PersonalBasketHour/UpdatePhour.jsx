@@ -60,8 +60,6 @@ export default function UpdatePHour({ updateVisible, setUpdateVisible, selectedR
     const updateRow = async (data) => {
         if (!selectedRow) return
         try {
-            console.log(data);
-
             await updatePersonalBasketHours(data)
             setUpdateVisible(false)
             setVisible(false)

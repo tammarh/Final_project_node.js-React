@@ -92,8 +92,6 @@ export default function UpdateTHour({ updateVisible, setUpdateVisible, selectedR
     const updateRow = async (data) => {
         if (!selectedRow) return
         try {
-            console.log(data);
-
             await updateTeachingHour(data)
             setUpdateVisible(false)
             setVisible(false)

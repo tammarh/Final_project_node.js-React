@@ -5,7 +5,6 @@ export default function App() {
   const { register, handleSubmit } = useForm()
   const onSubmit = async(data) => {
     const res = await axios.post("http://localhost:9999/api/auth/register", data)
-    console.log(data)
 }
 
 

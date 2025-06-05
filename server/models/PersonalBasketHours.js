@@ -1,52 +1,52 @@
 const mongoose = require('mongoose')
 //שעות סל אישי
 const PersonalBasketHoursSchema = new mongoose.Schema({
-    
+
     // סמל מוסד
-    institution:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:'Institution'
+    institution: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Institution'
     },
     // (מספר ושם) מקור
-    source:{
-       // numSrc:{type:Number,enum:[24,55]}, -- אם עושים  2 enum צריך אח"כ ב middelware לעשות בדיקות התאמה
-        type:String,enum:['24 - סל שילוב - מתיא','55 - הנחיית צוות המוס"ח'], required:true
+    source: {
+        // numSrc:{type:Number,enum:[24,55]}, -- אם עושים  2 enum צריך אח"כ ב middelware לעשות בדיקות התאמה
+        type: String, enum: ['24 - סל שילוב - מתיא', '55 - הנחיית צוות המוס"ח'], required: true
     },
     // (מספר ושם) ייעוד
-    designation:{
+    designation: {
         //numDes:{type:Number,enum:[1,27,28,30,1,21]}, -- אם עושים 2 enum צריך אח"כ ב middelware לעשות בדיקות התאמה
-        type:String,enum:[ '1 - תוכניות לימודים' ,  '27 - פרא רפואי' , '28 - לק"ש' ,  '30 - לק"ר' , '1 - תוכניות לימודים' , '21 - שעות הכנה'],        required:true
-       
-    }, 
+        type: String, enum: ['1 - תוכניות לימודים', '27 - פרא רפואי', '28 - לקות שמיעה', '30 - לקות ראיה', '1 - תוכניות לימודים', '21 - שעות הכנה'], required: true
+
+    },
     // תאריכים: ממתי 
-    fromDate:{
-        type:Date,
-        required:true
+    fromDate: {
+        type: Date,
+        required: true
     },
     // עד מתי
-    untilDate:{
-        type:Date,
-        required:true
+    untilDate: {
+        type: Date,
+        required: true
     },
     // תקן מחושב
-    calculatedQuota:{
-        type:Number,
-        required:true
+    calculatedQuota: {
+        type: Number,
+        required: true
     },
     // תקן בפועל 
-    actualQuota:{
-        type:Number,
-        required:true
+    actualQuota: {
+        type: Number,
+        required: true
     }
-},{timestamps:true})
+}, { timestamps: true })
 
 const sourceDesignationMap = {
-    '24 - סל שילוב - מתיא': ['1 - תוכניות לימודים', '27 - פרא רפואי', '28 - לק"ש', '30 - לק"ר'],
-    '55 - הנחיית צוות המוס"ח': ['1 - תוכניות לימודים', '21 - שעות הכנה']
+    '24 - סל שילוב - מתיא': [ '1 - תוכניות לימודים', '27 - פרא רפואי' ,'28 - לקות שמיעה' ,'30 - לקות ראיה' ],
+    '55 - הנחיית צוות המוס"ח': [ '1 - תוכניות לימודים', '21 - שעות הכנה' ]
 }
 
-PersonalBasketHoursSchema.pre('save', function(next) {
+PersonalBasketHoursSchema.pre('save', function (next) {
     const { source, designation } = this;
     const validDesignations = sourceDesignationMap[source];
 
@@ -70,4 +70,4 @@ PersonalBasketHoursSchema.pre('findOneAndUpdate', function (next) {
     }
     next(); // אם הכל תקין, ממשיכים לעדכון
 })
-module.exports = mongoose.model('PersonalBasketHours',PersonalBasketHoursSchema)
+module.exports = mongoose.model('PersonalBasketHours', PersonalBasketHoursSchema)

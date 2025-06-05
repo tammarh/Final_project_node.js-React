@@ -24,9 +24,7 @@ export default function IntegrationHours({ globalFilter, reload }) {
     const loudData = async () => {
         try {
             const data = await getAlliHours();
-            console.log("Teaching Hours Data:", data);
             setIhour(data);
-            console.log("Teaching Hours State:", ihour);
         } catch (error) {
             console.error("Error loading teaching hours:", error);
         }

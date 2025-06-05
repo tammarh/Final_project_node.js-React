@@ -7,7 +7,6 @@ const getAllPHours = async (req,res)=>{
     res.json(pHour)
 }
 
-
 const getPHoursByInstitutionSymbol = async (req,res)=>{
     const {id} = req.params
     const pHour = await PersonalBasketHours.find({institution:id})
@@ -31,12 +30,14 @@ const createPersonalBasketHour = async (req,res)=>{
 }
 
 const updatePersonalBasketHour = async (req,res)=>{
-    const {_id,source,designation,fromDate,untilDate,calculatedQuota,actualQuota} = req.body
+    const {_id,institution,source,designation,fromDate,untilDate,calculatedQuota,actualQuota} = req.body
     if(!_id)
-        return res.status(400).json({massage:'missing id'})
+        return res.status(400).json({message:'missing id'})
     const personalBasketHour = await PersonalBasketHours.findOne({_id})
     if(!personalBasketHour)
-        return res.status(400).json({massage:'not found PersonalBasketHour to update'})
+        return res.status(400).json({message:'not found PersonalBasketHour to update'})
+    if(institution)
+        personalBasketHour.institution = institution
     if(source)
         personalBasketHour.source = source
     if(designation)

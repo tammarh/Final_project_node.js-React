@@ -31,7 +31,6 @@ const login = async (req, res) => {
 }
 const register = async (req, res) => {
     const { username, password, name, email } = req.body
-    console.log(username)
     if (!username || !password || !name || !email) {
         return res.status(400).json({ message: 'All fields are required' })
     }

@@ -14,7 +14,6 @@ const getStudentSortByDisability = async (req, res) => {
 }
 
 const createNewBasketStudent = async (req, res) => {
-    console.log("createNewBasketStudent");
     const { institution, details, entitlementHours } = req.body;
     const newBasketStudent = await PersonalBasketStudent.create({ institution, details, entitlementHours });
     const savedBasketStudent = await newBasketStudent.save();

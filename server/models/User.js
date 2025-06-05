@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const HourOfTeacher = require('./subSchema/HourOfTeacher')
 
 const UserSchema = new mongoose.Schema({
    username: {
@@ -26,17 +25,24 @@ const UserSchema = new mongoose.Schema({
       enum: ['Supervisor', 'teacher', 'מזכירה'],
       default: 'teacher'
    },
-   active:{
+   active: {
       type: Boolean,
       default: true
    },
-   isTeacher:{
+   isTeacher: {
       type: Boolean,
       default: true
    },
-   HourOfTeacher:{
-      type:[HourOfTeacher],
-      default:[]
+   HourOfTeacher: {
+      type:  [{
+         institutionId: { type: String, default: '' },
+         integrationhours: { type: Number, default: null },
+         personalbasket: { type: Number, default: null },
+         additionforpersonalbasket: { type: Number, default: null },
+         education: { type: Boolean, default: false },
+         firstgradeeducation: { type: Boolean, default: false }
+      }],
+      default: []
    }
 
 }, { timestamps: true })

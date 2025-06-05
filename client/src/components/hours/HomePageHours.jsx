@@ -18,19 +18,14 @@ export default function HomePage() {
     const [tcreateVisible, setTcreateVisible] = useState(false)
     const [pcreateVisible, setPcreateVisible] = useState(false)
     const [reloadIHours, setReloadIHours] = useState(false);
-    const triggerReloadIHours = () => setReloadIHours(prev => !prev);
-
-    const handleAddNewTeachingHour = () => {
-        console.log('ok')
-
-    }
+    const triggerReloadIHours = () => setReloadIHours(prev => !prev)
 
     return (<>
-        <div className="flex flex-wrap gap-2 align-items-center justify-content-between" >
+        <div className="flex justify-content-end align-items-center" style={{ width: '180px' ,margin: '1.5rem' }}>
             <h4 className="m-0" ></h4>
             <IconField iconPosition="left">
                 <InputIcon className="pi pi-search" />
-                <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="חיפוש" />
+                <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="חיפוש" className="p-inputtext-sm"   />
             </IconField>
         </div>
         <div className="card" style={{ margin: '1.5rem' }}>
@@ -64,7 +59,7 @@ export default function HomePage() {
                         </div>
                     }
                 >
-                    <IntegrationHours globalFilter={globalFilter} reload={reloadIHours}/>
+                    <IntegrationHours globalFilter={globalFilter} reload={reloadIHours} />
                 </AccordionTab>
                 <AccordionTab
                     header={
@@ -83,9 +78,9 @@ export default function HomePage() {
                 </AccordionTab>
             </Accordion>
 
-            <CreateIHour icreateVisible={icreateVisible} setIcreateVisible={setIcreateVisible} onSuccess={triggerReloadIHours}/>
-            <CreateTHour tcreateVisible={tcreateVisible} setTcreateVisible={setTcreateVisible} onSuccess={triggerReloadIHours}/>
-            <CreatePHour pcreateVisible={pcreateVisible} setPcreateVisible={setPcreateVisible} onSuccess={triggerReloadIHours}/>
+            <CreateIHour icreateVisible={icreateVisible} setIcreateVisible={setIcreateVisible} onSuccess={triggerReloadIHours} />
+            <CreateTHour tcreateVisible={tcreateVisible} setTcreateVisible={setTcreateVisible} onSuccess={triggerReloadIHours} />
+            <CreatePHour pcreateVisible={pcreateVisible} setPcreateVisible={setPcreateVisible} onSuccess={triggerReloadIHours} />
         </div>
     </>
 

@@ -34,8 +34,6 @@ export default function UpdateIHour({ updateVisible, selectedRow, setVisible, se
     const updateRow = async (data) => {
         if (!selectedRow) return
         try {
-            console.log(data);
-
             await updateIntegrationHour(data)
             setUpdateVisible(false)
             setVisible(false)

@@ -12,21 +12,34 @@ import BasketStudentsTable from './components/students/StudentsList';
 
 
 function App() {
-  const {token} = useSelector((state)=>state.token)
+  const { token } = useSelector((state) => state.token)
   return (
     <>
       {/* <LoginForm/> */}
       <Router>
         <ToolBar />
-        {token ? <NavBar />:<h1>Institution</h1>}
-        <Routes>
-        <Route path="/Students" element={<BasketStudentsTable/>}></Route>
-          <Route path="/Hours" element={<HomePaageHours/>}></Route>
-        <Route path="/Teachers" element={<TeacherList/>}></Route>
+        {token ? (
+          <NavBar />
+        ) : (
+          <h1 style={{
+            fontFamily: 'Arial, sans-serif',
+            fontSize: '2.5rem',
+            color: '#2c3e50',
+            textAlign: 'center',
+            margin: '40px 20px',
+            lineHeight: '1.4',
+            fontWeight: '600'
+          }}>
+            מידע אמין ומעודכן על חינוך המיוחד של החינוך העצמאי
+          </h1>
+        )}        <Routes>
+          <Route path="/Students" element={<BasketStudentsTable />}></Route>
+          <Route path="/Hours" element={<HomePaageHours />}></Route>
+          <Route path="/Teachers" element={<TeacherList />}></Route>
           <Route path="/SupportAllocation" element={<SupportAllocation />}></Route>
           <Route path="/Institution" element={<>Institution</>}></Route>
-           <Route path="/Users" element={<Users/>}></Route> 
-          <Route path="/TeacherHours" element={<Schedule/>}></Route>
+          <Route path="/Users" element={<Users />}></Route>
+          <Route path="/TeacherHours" element={<Schedule />}></Route>
         </Routes>
       </Router>
     </>
