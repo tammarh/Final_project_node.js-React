@@ -16,8 +16,8 @@ export default function CustomDemo() {
     const { token } = useSelector((state) => state.token)
     const [visible, setVisible] = useState(false)
     const [dvisible, setDVisible] = useState(false)
-    const [userName, setUserName] = useState()
-    const [password, setPassword] = useState()
+    const [userName, setUserName] = useState('')
+    const [password, setPassword] = useState('')
     const { register, handleSubmit } = useForm()
     const onSubmit = async (data) => {
         const res = await axios.post('http://localhost:9999/api/auth/register', data)
@@ -130,6 +130,7 @@ export default function CustomDemo() {
                                         width: '20rem',margin: '1rem' 
                                     }}
                                     placeholder="הכנס שם משתמש"
+                                    required 
                                 />
                             </div>
 
@@ -148,6 +149,7 @@ export default function CustomDemo() {
                                     id="password"
                                     type="password"
                                     className="p-inputtext p-component"
+                                    required
                                     style={{
                                         backgroundColor: 'rgba(255, 255, 255, 0.15)',
                                         border: '1.5px solid #FFA726',
@@ -159,6 +161,7 @@ export default function CustomDemo() {
 
                                     }}
                                     placeholder="הכנס סיסמה"
+
                                 />
                             </div>
 
@@ -166,6 +169,7 @@ export default function CustomDemo() {
                                 <Button
                                     label="כניסה"
                                     onClick={logIn}
+                                    disabled={userName.trim() === '' || password.trim() === ''}
                                     className="p-button p-button-sm w-full"
                                     style={{
                                         border: 'none',
@@ -235,6 +239,7 @@ export default function CustomDemo() {
                                                         label="Username"
                                                         style={{ width: '20rem', margin: '1rem' }}
                                                         className="bg-white-alpha-20 border-none p-3 text-primary-50"
+                                                        required 
                                                     ></InputText>
                                                 </div>
                                                 <div className="inline-flex flex-column gap-4">
@@ -252,6 +257,7 @@ export default function CustomDemo() {
                                                         style={{ width: '20rem' }}
                                                         className="bg-white-alpha-20 border-none p-3 text-primary-50"
                                                         type="password"
+                                                        required 
                                                     ></InputText>
                                                 </div>
                                                 <div className="inline-flex flex-column gap-4">
@@ -268,6 +274,7 @@ export default function CustomDemo() {
                                                         label="name"
                                                         style={{ width: '20rem' }}
                                                         className="bg-white-alpha-20 border-none p-3 text-primary-50"
+                                                        required 
                                                     ></InputText>
                                                 </div>
                                                 <div className="inline-flex flex-column gap-4">
@@ -284,6 +291,7 @@ export default function CustomDemo() {
                                                         label="email"
                                                         style={{ width: '20rem' }}
                                                         className="bg-white-alpha-20 border-none p-3 text-primary-50"
+                                                        required 
                                                     ></InputText>
                                                 </div>
                                                 <div className="flex align-items-center gap-4">
