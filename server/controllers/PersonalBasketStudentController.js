@@ -13,20 +13,10 @@ const getStudentSortByDisability = async (req, res) => {
     res.json(allBasketStudents)
 }
 
-// const createNewBasketStudent = async (req, res) => {
-//     console.log("createNewBasketStudent");
-//     const { institution, details, entitlementHours } = req.body;
-//     const newBasketStudent = await PersonalBasketStudent.create({ institution, details, entitlementHours });
-//     // const savedBasketStudent = await newBasketStudent.save();
-//     res.json(savedBasketStudent);
-//     console.log("New BasketStudent created:", savedBasketStudent);
-// }
 
 const createNewBasketStudent = async (req, res) => {
   try {
     const { institution, details, entitlementHours } = req.body;
-
-    // Validate required fields before create
     if (!institution || !details || !entitlementHours) {
       return res.status(400).json({ error: "Missing required fields" });
     }
