@@ -23,20 +23,6 @@ const BasketStudentsTable = () => {
         { label: 'מוגבלות', value: 'disability' },
     ];
 
-    // useEffect(() => {
-    //     const fetchStudents = async () => {
-    //         try {
-    //             const res = await axios.get('http://localhost:8888/api/PersonalBasketStudent');
-    //             setStudents(res.data);
-    //         } catch (error) {
-    //             console.error("Failed to fetch students:", error);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
-    //     fetchStudents();
-    // }, []);
-
     const fetchStudents = async () => {
         try {
             const res = await axios.get('http://localhost:8888/api/PersonalBasketStudent');
