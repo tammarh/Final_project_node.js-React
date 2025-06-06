@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -51,30 +52,20 @@
   background-color: #ffe4b8;
 }
 
-/* שינוי צבע הטקסט בפריטים */
 .p-menubar.custom-menubar .p-menuitem-link {
-  color: rgba(6, 2, 118, 0.618)!important;
+  color: rgba(6, 2, 118, 0.618) !important;
 }
 
-/* שינוי צבע בפריט בעת ריחוף */
 .p-menubar.custom-menubar .p-menuitem-link:hover {
   color: #ffffff;
 }
+
 .p-datatable .p-column-header,
 .p-datatable .p-cell {
-    text-align: right;
-    direction: rtl;
+  text-align: right;
+  direction: rtl;
 }
 
-/* ריווח סביב כל InputText של PrimeReact */
 .p-inputtext {
-  margin: 1rem; /* ריווח חיצוני */
+  margin: 1rem;
 }
-
-/* .custom-small-input .p-calendar-input {
-  font-size: 0.8rem;
-  padding: 0.25rem 0.5rem;
-  height: 2rem; /* הנמכת גובה 
-  min-height: 2rem;
-} */
-

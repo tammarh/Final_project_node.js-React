@@ -51,7 +51,6 @@ export default function CustomDemo() {
     const logIn = async () => {
 
         try {
-            //const res = await login({ username: userName, password })
             const res = await axios.post('http://localhost:9999/api/auth/login', { username: userName, password })
             dispatch(setCredentials({ token: res.data.token, user: res.data.user, role: res.data.role }))
             if (res.status == 200) {

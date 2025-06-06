@@ -30,14 +30,12 @@ const TeachingHoursSchema = new mongoose.Schema({
     },
     // (מספר ושם) מקור
     source:{
-       // numSrc:{type:Number,enum:[5,6,25,16]}, -- אם עושים  2 enum צריך אח"כ ב middelware לעשות בדיקות התאמה
        type:String,enum:['5 - סל עדיפות','6 - תקן בסיסי חנמ לקויות מורכבות',
         '25 - בסיסי חנמ רגיל לקויות קלות','16 - סל שחמ'],
         required:true
     },
     // (מספר ושם) ייעוד
     designation:{
-        //numDes:{type:Number,enum:[11,85,1,18,19,20,1,18,19,20,90,91,99]}, -- אם עושים 2 enum צריך אח"כ ב middelware לעשות בדיקות התאמה
         type:String,enum:['11 - יוחא','85 - ניהול','1 - תוכניות לימודים','18 - חינוך',
             '19 - ניהול','20 - יעוץ','1 - תוכניות לימודים','18 - חינוך','19 - ניהול',
             '20 - יעוץ','90 - רופא','91 - פרא רפואי','99 - אחות'],
@@ -75,20 +73,20 @@ const sourceDesignationMap = {
 
 TeachingHoursSchema.pre('save', function(next) {
     const { source, designation } = this;
-    const validDesignations = sourceDesignationMap[source];
+    const validDesignations = sourceDesignationMap[source]
 
     if (!validDesignations || !validDesignations.includes(designation)) {
-        const error = new Error(`Invalid designation "${designation}" for source "${source}"`);
+        const error = new Error(`Invalid designation "${designation}" for source "${source}"`)
         err.statusCode = 422;
         return next(error)    
     }
-    next();
+    next()
 })
 
 TeachingHoursSchema.pre('findOneAndUpdate', function (next) {
-    const update = this.getUpdate(); // מקבל את הנתונים המעודכנים
+    const update = this.getUpdate()
     const source = update.source;
-    const designation = update.designation;
+    const designation = update.designation
 
     if (source && designation) {
         const validDesignations = sourceDesignationMap[source];
@@ -98,6 +96,6 @@ TeachingHoursSchema.pre('findOneAndUpdate', function (next) {
             return next(error);
         }
     }
-    next(); // אם הכל תקין, ממשיכים לעדכון
+    next()
 })
 module.exports = mongoose.model('TeachingHours',TeachingHoursSchema)

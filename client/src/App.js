@@ -15,7 +15,6 @@ function App() {
   const { token } = useSelector((state) => state.token)
   return (
     <>
-      {/* <LoginForm/> */}
       <Router>
         <ToolBar />
         {token ? (
@@ -36,8 +35,6 @@ function App() {
           <Route path="/Students" element={<BasketStudentsTable />}></Route>
           <Route path="/Hours" element={<HomePaageHours />}></Route>
           <Route path="/Teachers" element={<TeacherList />}></Route>
-          <Route path="/SupportAllocation" element={<SupportAllocation />}></Route>
-          <Route path="/Institution" element={<>Institution</>}></Route>
           <Route path="/Users" element={<Users />}></Route>
           <Route path="/TeacherHours" element={<Schedule />}></Route>
         </Routes>

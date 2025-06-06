@@ -7,16 +7,6 @@ const getAllTHours = async (req, res) => {
     res.json(tHour)
 }
 
-/*const getAllTHoursofSalShaham = async (req, res) => {
-    const SalShaham = await TeachingHours.find({ source: 'SalShaham' })
-    .populate({path: 'institution',select:'institutionName settlement localAuthority Supervisor '})  
-    if(!SalShaham)
-        return res.status(400).json({ message: "didnt found SalShaham hour" })
-
-    res.json(SalShaham)
-
-}*/
-
 const getTHoursByInstitutionSymbol = async (req, res) => {
     const { id } = req.params
     const tHour = await TeachingHours.find({ institution: id })
@@ -38,39 +28,6 @@ const createTeachingHour = async (req, res) => {
     const newThour = await TeachingHours.create({ institution, grade, equivalent, studentsAllocation, classType, source, designation, fromDate, untilDate, calculatedQuota, actualQuota })
     res.json(newThour)
 }
-
-// const updateTeachingHour = async (req,res)=>{
-//     const {_id,grade,equivalent,studentsAllocation,classType,source,designation,fromDate,untilDate,calculatedQuota,actualQuota} = req.body
-//     if(!_id)
-//         return res.status(400).json({massage:'missing id'})
-//     const teachingHour = await TeachingHours.findOne({_id})
-//     if(!teachingHour)
-//         return res.status(400).json({massage:'not found TeachingHour to update'})
-//     if(grade)
-//         teachingHour.grade = grade
-//     if(equivalent)
-//         teachingHour.equivalent = equivalent
-//     if(studentsAllocation)
-//         teachingHour.studentsAllocation = studentsAllocation
-//     if(classType)
-//         teachingHour.classType = classType
-//     if(source)
-//         teachingHour.source = source
-//     if(designation)
-//         teachingHour.designation = designation
-//     if(fromDate)
-//         teachingHour.fromDate = fromDate
-//     if(untilDate)
-//         teachingHour.untilDate = untilDate
-//     if(calculatedQuota)
-//         teachingHour.calculatedQuota = calculatedQuota
-//     if(actualQuota)
-//         teachingHour.actualQuota = actualQuota
-
-//     const updateTeachhour = await teachingHour.save()
-//     res.json(updateTeachhour)
-
-// }
 
 const updateTeachingHour = async (req, res) => {
     const { _id, ...updateFields } = req.body;

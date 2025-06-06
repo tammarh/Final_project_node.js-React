@@ -1,17 +1,12 @@
 import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from '../../services/userService';
 import React, { useState, useEffect, useRef, act } from 'react';
-import { classNames } from 'primereact/utils';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
-import { FileUpload } from 'primereact/fileupload';
 import { Toolbar } from 'primereact/toolbar';
-import { InputTextarea } from 'primereact/inputtextarea';
 import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { RadioButton } from 'primereact/radiobutton';
-import { InputNumber } from 'primereact/inputnumber';
+import { InputIcon } from 'primereact/inputicon'
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
@@ -228,7 +223,6 @@ export default function Users() {
 
             <TeacherHoursDialog
                 visible={showHoursDialog}
-                //onHide={() => setShowHoursDialog(false)}
                 user={user}
                 setUser={setUser}
                 ingredient={ingredient}
