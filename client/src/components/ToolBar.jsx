@@ -168,7 +168,6 @@ export default function CustomDemo() {
                                 <Button
                                     label="כניסה"
                                     onClick={logIn}
-                                    disabled={userName.trim() === '' || password.trim() === ''}
                                     className="p-button p-button-sm w-full"
                                     style={{
                                         border: 'none',

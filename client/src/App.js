@@ -2,7 +2,6 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar'
 import Schedule from './components/Teachers/Schedule';
-import SupportAllocation from './components/students/SupportAllocation';
 import ToolBar from './components/ToolBar';
 import Users from './components/Users/Users'
 import { useSelector } from 'react-redux';

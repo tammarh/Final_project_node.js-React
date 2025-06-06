@@ -26,19 +26,20 @@ export default function LazyDemo() {
         <div className="card flex justify-content-center">
 
             <DataTable value={hour} tableStyle={{ minWidth: '50rem' }}>
-                <Column field="Institution" header="מוסד"></Column>
-                <Column field="integrationhours" header="שעות שילוב"></Column>
-                <Column field="personalbasket" header="סל אישי"></Column>
-                <Column field="additionforpersonalbasket" header="תוספת סל אישי"></Column>
+                <Column field="Institution" header="מוסד" style={{textAlign:'center'}}></Column>
+                <Column field="integrationhours" header="שעות שילוב" style={{textAlign:'center'}}></Column>
+                <Column field="personalbasket" header="סל אישי" style={{textAlign:'center'}}></Column>
+                <Column field="additionforpersonalbasket" header="תוספת סל אישי" style={{textAlign:'center'}}></Column>
                 <Column header="סך הכל" body={(row) =>
                     (row.integrationhours || 0) +
                     (row.personalbasket || 0) +
                     (row.additionforpersonalbasket || 0)
-                }></Column>
-                <Column field="education" header="חינוך"></Column>
-                <Column field="firstgradeeducation" header="חינוך כיתה א"></Column>
+                } style={{textAlign:'center'}}></Column>
+                <Column field="education" header="חינוך" body={(rowData) => (rowData.education ? '✔️' : '')} style={{textAlign:'center'}}></Column>
+                <Column field="firstgradeeducation" header="חינוך כיתה א" body={(rowData) => (rowData.firstgradeeducation ? '✔️' : '')} style={{textAlign:'center'}}></Column>
+
             </DataTable>
 
-        </div>
+        </div >
     );
 }
